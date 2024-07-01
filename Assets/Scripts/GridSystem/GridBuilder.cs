@@ -53,7 +53,7 @@ namespace GridSystem
 
                 for (var y = 0; y < gridHeight; y++)
                 {
-                    var yPos = yOffset * y - (x % 2 == 0 ? 0 : yOffset / 2);
+                    var yPos = yOffset * y - (x % 2 == 1 ? 0 : yOffset / 2);
 #if UNITY_EDITOR
 
                     var tileTemp = onEditor

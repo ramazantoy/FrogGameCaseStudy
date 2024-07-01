@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GridBuilderDataContainer
   m_EditorClassIdentifier: 
   XOffset: 0.8
-  YOffset: 0.95
+  YOffset: -0.95
   TilePref: {fileID: 551106295750609806, guid: 7c8a68345d054024085dc5bf4ddb0a40, type: 3}
   LevelBaseSettings:
   - GridWidth: 5
     GridHeight: 5
-    CameraPos: {x: 1.5, y: -4, z: -10}
+    CameraPos: {x: 1.5, y: -7, z: -10}
     CameraSize: 5
   - GridWidth: 5
     GridHeight: 5
