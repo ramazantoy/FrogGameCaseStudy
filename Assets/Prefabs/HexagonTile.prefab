@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5746270343105411680}
+  - component: {fileID: 551106295750609806}
   m_Layer: 0
   m_Name: HexagonTile
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -33,6 +34,18 @@ Transform:
   - {fileID: 4982253382485106243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &551106295750609806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602558010962013536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc312cc82445b349a6bc2e04eca8aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8805153306498155037
 GameObject:
   m_ObjectHideFlags: 0
