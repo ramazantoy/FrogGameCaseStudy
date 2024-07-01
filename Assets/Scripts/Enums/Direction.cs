@@ -1,4 +1,4 @@
-namespace Tile
+namespace Enums
 {
     public enum Direction
     {

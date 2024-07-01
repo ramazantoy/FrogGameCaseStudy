@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48604b3c9c668d64da6bf7b703694a5b, type: 3}
+  m_Name: HexViewDataContainer
+  m_EditorClassIdentifier: 
+  OutlineMaterials:
+  - {fileID: 2100000, guid: 95720f96b2e8099428255e45971d9fe5, type: 2}
+  - {fileID: 2100000, guid: 52636c1a1a832ee42829d4e6e1ad1857, type: 2}
+  - {fileID: 2100000, guid: 2cb846f5d2bfbe940921d6b16100d3de, type: 2}
+  - {fileID: 2100000, guid: 53c5ec58fd7017b44953006e105256e2, type: 2}
+  - {fileID: 2100000, guid: a084454c34cf3ec4a966609fb03a8ab1, type: 2}

@@ -1,3 +1,4 @@
+using Enums;
 using UnityEngine;
 
 namespace Tile
@@ -12,6 +13,11 @@ namespace Tile
         public override Vector2Int GetNeighbourByDirection(Direction direction)
         {
             return TileCoordinate.GetCoordinate(direction);
+        }
+
+        public override void ScaleDown(float time)
+        {
+            
         }
     }
 }

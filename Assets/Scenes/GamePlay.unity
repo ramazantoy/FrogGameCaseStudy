@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridBuilderDataContainer: {fileID: 11400000, guid: 9b96de8f06f5cdb45b3cb3c2f21eb6ad, type: 2}
+  _levelIndex: 0
 --- !u!1001 &893913461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1884,7 +1885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5746270343105411680, guid: 7c8a68345d054024085dc5bf4ddb0a40, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4.18
       objectReference: {fileID: 0}
     - target: {fileID: 5746270343105411680, guid: 7c8a68345d054024085dc5bf4ddb0a40, type: 3}
       propertyPath: m_LocalRotation.w

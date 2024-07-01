@@ -23,6 +23,11 @@ namespace Editor
                 var gridBuilder = (GridBuilder)target;
                 gridBuilder.RemoveTiles();
             }
+            if (GUILayout.Button("SaveLevel"))
+            {
+                var gridBuilder = (GridBuilder)target;
+                gridBuilder.RemoveTiles();
+            }
         }
     }
 }

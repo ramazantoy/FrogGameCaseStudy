@@ -9,10 +9,9 @@ namespace GridSystem
 {
     public class GridBuilder : MonoBehaviour
     {
-
-        [SerializeField]
-        private GridBuilderDataContainer _gridBuilderDataContainer;
+        [SerializeField] private GridBuilderDataContainer _gridBuilderDataContainer;
         private HexTile[,] _tiles;
+        [SerializeField, Range(0, 10)] private int _levelIndex;
 
         private void Start()
         {
@@ -36,19 +35,19 @@ namespace GridSystem
         public void BuildGrid(bool onEditor = true)
         {
             RemoveTiles(onEditor);
-            
 
-            var gridWidth = _gridBuilderDataContainer.LevelBaseSettings[0].GridWidth;
-            var gridHeight = _gridBuilderDataContainer.LevelBaseSettings[0].GridHeight;
+
+            var gridWidth = _gridBuilderDataContainer.LevelBaseSettings[_levelIndex].GridWidth;
+            var gridHeight = _gridBuilderDataContainer.LevelBaseSettings[_levelIndex].GridHeight;
             var xOffset = _gridBuilderDataContainer.XOffset;
             var yOffset = _gridBuilderDataContainer.YOffset;
             var tilePref = _gridBuilderDataContainer.TilePref;
-            
+
             _tiles = new HexTile[gridWidth, gridHeight];
 
             for (var x = 0; x < gridWidth; x++)
             {
-                var xPos =  xOffset * x;
+                var xPos = xOffset * x;
 
 
                 for (var y = 0; y < gridHeight; y++)
@@ -66,7 +65,7 @@ namespace GridSystem
 
                     if (tileTemp == null) continue;
 
-                    tileTemp.transform.position = new Vector3(xPos, yPos,0);
+                    tileTemp.transform.position = new Vector3(xPos, yPos, 0);
                     tileTemp.name = $"HEX_{x}-{y}";
                     tileTemp.TileCoordinate = new Vector2Int(x, y);
                     _tiles[x, y] = tileTemp;
@@ -106,11 +105,23 @@ namespace GridSystem
         /// <returns>The HexTile at the specified coordinates, or null if out of bounds.</returns>
         private HexTile GetTile(Vector2Int coordinate)
         {
-            if (coordinate.x < 0 || coordinate.y < 0 || coordinate.x >= _tiles.GetLength(0) || coordinate.y >= _tiles.GetLength(1))
+            if (coordinate.x < 0 || coordinate.y < 0 || coordinate.x >= _tiles.GetLength(0) ||
+                coordinate.y >= _tiles.GetLength(1))
             {
                 return null;
             }
+
             return _tiles[coordinate.x, coordinate.y];
         }
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// Save to level data on SO.
+        /// </summary>
+        public void SaveLevelDataOnEditor()
+        {
+            
+        }
+#endif
     }
 }

@@ -175,6 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1804699357035541589}
+  - component: {fileID: 6729298352975993245}
   m_Layer: 0
   m_Name: HexView
   m_TagString: Untagged
@@ -199,3 +200,17 @@ Transform:
   - {fileID: 1036678431813001207}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6729298352975993245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6145240586367303220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0610d762117e246b701c89247b43b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hexViewDataContainer: {fileID: 11400000, guid: ea2721193710baf49bf3e3a0ebd091a1, type: 2}
+  _outLineMeshRenderer: {fileID: 1869868355498649404}
