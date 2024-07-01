@@ -5,8 +5,8 @@ namespace Tile
 {
     public abstract class TileBase : MonoBehaviour
     {
-        public Vector3Int TileCoordinate { get; set; }
-        public abstract TileBase GetNeighbourByDirection();
+        public Vector2Int TileCoordinate { get; set; }
+        public abstract Vector2Int GetNeighbourByDirection(Direction direction);
         
     }
 }

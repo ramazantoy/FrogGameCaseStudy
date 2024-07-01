@@ -4,9 +4,14 @@ namespace Tile
 {
     public class HexTile : TileBase
     {
-        public override TileBase GetNeighbourByDirection()
+        /// <summary>
+        /// Returns the neighboring coordinate of a hex tile based on the given direction.
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public override Vector2Int GetNeighbourByDirection(Direction direction)
         {
-            throw new System.NotImplementedException();
+            return TileCoordinate.GetCoordinate(direction);
         }
     }
 }
