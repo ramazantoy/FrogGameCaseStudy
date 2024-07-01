@@ -9,14 +9,9 @@ namespace GridSystem
 {
     public class GridBuilder : MonoBehaviour
     {
-        public float xOffset = 0.8f;
-        public float yOffset = 0.866f;
-        public HexTile tilePref;
-        public Vector3 startPosition = new Vector3(0, 0, 0);
 
-        public int gridWidth = 5;
-        public int gridHeight = 5;
-
+        [SerializeField]
+        private GridBuilderDataContainer _gridBuilderDataContainer;
         private HexTile[,] _tiles;
 
         private void Start()
@@ -41,16 +36,24 @@ namespace GridSystem
         public void BuildGrid(bool onEditor = true)
         {
             RemoveTiles(onEditor);
+            
+
+            var gridWidth = _gridBuilderDataContainer.LevelBaseSettings[0].GridWidth;
+            var gridHeight = _gridBuilderDataContainer.LevelBaseSettings[0].GridHeight;
+            var xOffset = _gridBuilderDataContainer.XOffset;
+            var yOffset = _gridBuilderDataContainer.YOffset;
+            var tilePref = _gridBuilderDataContainer.TilePref;
+            
             _tiles = new HexTile[gridWidth, gridHeight];
 
             for (var x = 0; x < gridWidth; x++)
             {
-                var xPos = startPosition.x + xOffset * x;
+                var xPos =  xOffset * x;
 
 
                 for (var y = 0; y < gridHeight; y++)
                 {
-                    var yPos = startPosition.y - yOffset * y - (x % 2 == 0 ? 0 : yOffset / 2);
+                    var yPos = yOffset * y - (x % 2 == 0 ? 0 : yOffset / 2);
 #if UNITY_EDITOR
 
                     var tileTemp = onEditor
@@ -63,12 +66,16 @@ namespace GridSystem
 
                     if (tileTemp == null) continue;
 
-                    tileTemp.transform.position = new Vector3(xPos, yPos, startPosition.z);
+                    tileTemp.transform.position = new Vector3(xPos, yPos,0);
                     tileTemp.name = $"HEX_{x}-{y}";
                     tileTemp.TileCoordinate = new Vector2Int(x, y);
                     _tiles[x, y] = tileTemp;
                 }
             }
+
+            var camera = Camera.main;
+            camera.transform.position = _gridBuilderDataContainer.LevelBaseSettings[0].CameraPos;
+            camera.orthographicSize = _gridBuilderDataContainer.LevelBaseSettings[0].CameraSize;
         }
 
         /// <summary>
