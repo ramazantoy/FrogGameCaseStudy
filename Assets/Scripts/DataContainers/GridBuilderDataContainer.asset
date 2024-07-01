@@ -18,7 +18,7 @@ MonoBehaviour:
   LevelBaseSettings:
   - GridWidth: 5
     GridHeight: 5
-    CameraPos: {x: 1.5, y: -6, z: -10}
+    CameraPos: {x: 1.5, y: -4, z: -10}
     CameraSize: 5
   - GridWidth: 5
     GridHeight: 5
