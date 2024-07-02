@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Dtos;
 using Tile;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -35,5 +36,14 @@ namespace GridSystem
         public int GridHeight;
         public Vector3 CameraPos;
         public float CameraSize;
+
+        public List<LevelTilesView> LevelTilesViews;
+    }
+
+    [System.Serializable]
+    public struct LevelTilesView
+    {
+        public Vector2Int Key;
+        public List<HexViewDto> Value;
     }
 }

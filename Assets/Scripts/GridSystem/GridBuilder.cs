@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Dtos;
 using Tile;
 using UnityEditor;
 using UnityEngine;
@@ -10,8 +11,15 @@ namespace GridSystem
     public class GridBuilder : MonoBehaviour
     {
         [SerializeField] private GridBuilderDataContainer _gridBuilderDataContainer;
+
         private HexTile[,] _tiles;
-        [SerializeField, Range(0, 10)] private int _levelIndex;
+
+        private Dictionary<Vector2Int, List<HexViewDto>> _levelDictionary;
+
+#if UNITY_EDITOR
+        public int gridWidth;
+        public int gridHeight;
+#endif
 
         private void Start()
         {
@@ -37,8 +45,6 @@ namespace GridSystem
             RemoveTiles(onEditor);
 
 
-            var gridWidth = _gridBuilderDataContainer.LevelBaseSettings[_levelIndex].GridWidth;
-            var gridHeight = _gridBuilderDataContainer.LevelBaseSettings[_levelIndex].GridHeight;
             var xOffset = _gridBuilderDataContainer.XOffset;
             var yOffset = _gridBuilderDataContainer.YOffset;
             var tilePref = _gridBuilderDataContainer.TilePref;
@@ -71,6 +77,8 @@ namespace GridSystem
                     _tiles[x, y] = tileTemp;
                 }
             }
+
+            if (onEditor) return;
 
             var camera = Camera.main;
             camera.transform.position = _gridBuilderDataContainer.LevelBaseSettings[0].CameraPos;
@@ -120,7 +128,31 @@ namespace GridSystem
         /// </summary>
         public void SaveLevelDataOnEditor()
         {
-            
+            var levelData = new List<LevelTilesView>();
+            for (var i = 0; i < _tiles.GetLength(0); i++)
+            {
+                for (var j = 0; j < _tiles.GetLength(1); j++)
+                {
+                    var key = new Vector2Int(i, j);
+                    var value = _tiles[i, j].GetElementsData();
+
+                    levelData.Add(new LevelTilesView
+                    {
+                        Key = key,
+                        Value = value
+                    });
+                }
+            }
+            var mainCamera = Camera.main;
+
+            _gridBuilderDataContainer.LevelBaseSettings.Add(new LevelBaseSettings()
+            {
+                GridHeight = gridHeight,
+                GridWidth = gridWidth,
+                CameraSize = mainCamera.orthographicSize,
+                CameraPos = mainCamera.transform.position,
+                LevelTilesViews = levelData,
+            });
         }
 #endif
     }

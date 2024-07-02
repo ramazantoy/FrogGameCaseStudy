@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de7658cc11d152641b4f7a5ad21f4e28, type: 3}
-  m_Name: GridBuilderDataContainer
+  m_Script: {fileID: 11500000, guid: 73d06917e40d2db46963cf8ff80dcdbe, type: 3}
+  m_Name: HexViewElementDataContainer
   m_EditorClassIdentifier: 
-  XOffset: 0.8
-  YOffset: -0.95
-  TilePref: {fileID: 551106295750609806, guid: 7c8a68345d054024085dc5bf4ddb0a40, type: 3}
-  LevelBaseSettings: []
+  _hexViewElementPrefabs:
+  - {fileID: 4984005570556432917, guid: 85ade49faed48ad46bb85750c7a7d56c, type: 3}

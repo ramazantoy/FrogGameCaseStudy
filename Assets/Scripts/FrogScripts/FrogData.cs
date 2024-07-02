@@ -11,16 +11,15 @@ namespace FrogScripts
     public struct FrogData
     {
         public Animator FrogAnimator;
-        public ColorType FrogColorType;
         [SerializeField] private SkinnedMeshRenderer _frogMeshRenderer;
         [SerializeField] public MaterialDataContainer _frogMaterialData;
 
         /// <summary>
         /// Sets the color of the frog based on its color type.
         /// </summary>
-        public void SetFrogColor()
+        public void SetFrogColor(ColorType colorType)
         {
-            _frogMeshRenderer.material = _frogMaterialData.GetOutLineMaterial(FrogColorType);
+            _frogMeshRenderer.material = _frogMaterialData.GetOutLineMaterial(colorType);
         }
     }
 }

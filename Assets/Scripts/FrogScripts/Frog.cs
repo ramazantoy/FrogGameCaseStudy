@@ -12,12 +12,7 @@ namespace FrogScripts
     {
         [SerializeField]
         private FrogData _properties;
-
-        private void Awake()
-        {
-            _properties.SetFrogColor();
-        }
-
+        
         /// <summary>
         /// Gets or sets the direction of the frog.
         /// </summary>
@@ -29,6 +24,11 @@ namespace FrogScripts
         public override void OnAction()
         {
             // Action logic for the frog
+        }
+
+        public override void SetColor(ColorType colorType)
+        {
+            _properties.SetFrogColor(colorType);
         }
     }
 }
