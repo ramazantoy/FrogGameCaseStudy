@@ -26,7 +26,7 @@ namespace Editor
             if (GUILayout.Button("SaveLevel"))
             {
                 var gridBuilder = (GridBuilder)target;
-                gridBuilder.RemoveTiles();
+                gridBuilder.SaveLevelDataOnEditor();
             }
         }
     }
