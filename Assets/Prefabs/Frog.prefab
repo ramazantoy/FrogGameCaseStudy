@@ -107,6 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3175162097000121032}
+  - component: {fileID: 4984005570556432917}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Untagged
@@ -122,7 +123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489917708117065173}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.475, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -130,6 +131,23 @@ Transform:
   - {fileID: 5620717424019209213}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4984005570556432917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489917708117065173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e90ceea6cb6524dafe328a23fb7dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _properties:
+    FrogAnimator: {fileID: 3719694018302911747}
+    FrogColorType: 0
+    _frogMeshRenderer: {fileID: 1667087844271928693}
+    _frogMaterialData: {fileID: 11400000, guid: ef3a0ec8309d36148aa812fc58170d97, type: 2}
 --- !u!1 &564615334924499588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,7 +1322,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 49d02da788f1c58469f265817a8761a4, type: 2}
+  - {fileID: 2100000, guid: 4cbc0a257eaca4545b8bb90d3011300c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1917,6 +1935,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5620717424019209213}
+  - component: {fileID: 3719694018302911747}
   m_Layer: 0
   m_Name: FrogView
   m_TagString: Untagged
@@ -1941,6 +1960,27 @@ Transform:
   - {fileID: 4708264420820189257}
   m_Father: {fileID: 3175162097000121032}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!95 &3719694018302911747
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6708221911294802218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 97b5d4776bc6f654dbc9c3032e396020, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6836054853060923422
 GameObject:
   m_ObjectHideFlags: 0
