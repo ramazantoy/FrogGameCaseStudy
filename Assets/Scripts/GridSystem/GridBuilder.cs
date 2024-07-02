@@ -12,11 +12,16 @@ namespace GridSystem
     {
         [SerializeField] private GridBuilderDataContainer _gridBuilderDataContainer;
 
+        
+     
+        
         private HexTile[,] _tiles;
 
         private Dictionary<Vector2Int, List<HexViewDto>> _levelDictionary;
 
 #if UNITY_EDITOR
+    
+        public List<HexTile> tileList;
         public int gridWidth;
         public int gridHeight;
 #endif
@@ -49,7 +54,12 @@ namespace GridSystem
             var yOffset = _gridBuilderDataContainer.YOffset;
             var tilePref = _gridBuilderDataContainer.TilePref;
 
-            _tiles = new HexTile[gridWidth, gridHeight];
+            if (!onEditor)
+            {
+                _tiles = new HexTile[gridWidth, gridHeight];
+            }
+
+       
 
             for (var x = 0; x < gridWidth; x++)
             {
@@ -74,7 +84,12 @@ namespace GridSystem
                     tileTemp.transform.position = new Vector3(xPos, yPos, 0);
                     tileTemp.name = $"HEX_{x}-{y}";
                     tileTemp.TileCoordinate = new Vector2Int(x, y);
-                    _tiles[x, y] = tileTemp;
+
+                    if (!onEditor)
+                    {
+                        _tiles[x, y] = tileTemp;
+                    }
+               
                 }
             }
 
@@ -126,8 +141,11 @@ namespace GridSystem
         /// <summary>
         /// Save to level data on SO.
         /// </summary>
+        [Obsolete("Obsolete")]
         public void SaveLevelDataOnEditor()
         {
+            ConvertListToMatrix(); // for editor bug
+            
             var levelData = new List<LevelTilesView>();
             for (var i = 0; i < _tiles.GetLength(0); i++)
             {
@@ -153,6 +171,26 @@ namespace GridSystem
                 CameraPos = mainCamera.transform.position,
                 LevelTilesViews = levelData,
             });
+            
+            _gridBuilderDataContainer.SetDirty(); 
+
+            AssetDatabase.SaveAssets();
+        }
+
+        /// <summary>
+        /// Converts a list of HexTile objects into a 2D matrix based on the grid's width and height.
+        /// </summary>
+        private void ConvertListToMatrix()
+        {
+            _tiles = new HexTile[gridWidth, gridHeight];
+
+            for (int i = 0; i < tileList.Count; i++)
+            {
+                var x = i / gridHeight; 
+                var y = i % gridHeight; 
+
+                _tiles[x, y] = tileList[i];
+            }
         }
 #endif
     }

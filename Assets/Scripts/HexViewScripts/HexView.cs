@@ -12,6 +12,7 @@ namespace HexViewScripts
         [SerializeField] private HexViewData _properties;
 
 
+        [SerializeField] private Direction _direction;
         [SerializeField] private HexViewElementType _hexViewElementType;
         [SerializeField] private ColorType _targetColorType;
 
@@ -28,6 +29,10 @@ namespace HexViewScripts
                 _properties.OutLineMaterialDataContainer.GetOutLineMaterial(colorType);
         }
 
+        /// <summary>
+        /// Sets the hex view properties based on the provided HexViewDto object. This is used to configure child settings when the game starts.
+        /// </summary>
+        /// <param name="dto">HexViewDto object containing the properties to set for the hex view.</param>
         public void SetHexView(HexViewDto dto)
         {
             _hexViewElementType = dto.HexViewElementType;
@@ -38,12 +43,18 @@ namespace HexViewScripts
         }
 
 #if UNITY_EDITOR
+        
+        /// <summary>
+        /// Creates and returns a HexViewDto object containing the current settings of the HexViewElement.
+        /// </summary>
+        /// <returns>HexViewDto for saving level settings.</returns>
         public HexViewDto GetViewDto()
         {
             var hexViewDto = new HexViewDto
             {
              HexViewElementType = _hexViewElementType,
              HexViewColorType = _targetColorType,
+             Direction = _direction,
             };
 
             return hexViewDto;

@@ -39,6 +39,10 @@ namespace GridSystem
 
         public List<LevelTilesView> LevelTilesViews;
     }
+    
+    /// <summary>
+    /// Level data class for converting to dictionary
+    /// </summary>
 
     [System.Serializable]
     public struct LevelTilesView

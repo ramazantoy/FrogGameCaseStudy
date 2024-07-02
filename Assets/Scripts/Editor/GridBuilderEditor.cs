@@ -1,3 +1,5 @@
+using System;
+
 #if UNITY_EDITOR
 namespace Editor
 {
@@ -5,9 +7,13 @@ namespace Editor
     using UnityEngine;
     using UnityEditor;
 
+    /// <summary>
+    /// Custom editor for the GridBuilder class, adding buttons for building, removing tiles, and saving level data in the Unity editor.
+    /// </summary>
     [CustomEditor(typeof(GridBuilder), true)]
     public class GridBuilderEditor : Editor
     {
+        [Obsolete("Obsolete")]
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
