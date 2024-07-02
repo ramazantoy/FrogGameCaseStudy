@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48604b3c9c668d64da6bf7b703694a5b, type: 3}
+  m_Name: FrogMaterials
+  m_EditorClassIdentifier: 
+  _materials:
+  - {fileID: 2100000, guid: 250b010077192ce44abd79f9cf82ac26, type: 2}
+  - {fileID: 2100000, guid: 333c742690e513c47a7ea5dd46fc551a, type: 2}
+  - {fileID: 2100000, guid: 401c473d86c3d564993d4d4646f824c4, type: 2}
+  - {fileID: 2100000, guid: 2fec88687ac17104282ec54b0aba9a60, type: 2}
+  - {fileID: 2100000, guid: 49d02da788f1c58469f265817a8761a4, type: 2}

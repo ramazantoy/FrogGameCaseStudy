@@ -1,12 +1,14 @@
+using Containers;
 using Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HexViewScripts
 {
     public class HexView : MonoBehaviour
-    {
+    { 
         [SerializeField]
-        private HexViewDataContainer _hexViewDataContainer;
+        private MaterialDataContainer _outLineMaterialDataContainer;
         
         [SerializeField]
         private MeshRenderer _outLineMeshRenderer;
@@ -18,7 +20,7 @@ namespace HexViewScripts
 
         public void SetOutLineColor(ColorType colorType)
         {
-            _outLineMeshRenderer.material = _hexViewDataContainer.GetOutLineMaterial(colorType);
+            _outLineMeshRenderer.material = _outLineMaterialDataContainer.GetOutLineMaterial(colorType);
         }
     }
 }
