@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5746270343105411680}
   - component: {fileID: 551106295750609806}
-  - component: {fileID: 4429532189779194917}
   m_Layer: 0
   m_Name: HexagonTile
   m_TagString: Untagged
@@ -52,27 +51,6 @@ MonoBehaviour:
     EmpyViewObject: {fileID: 113033588080469760}
     HexViewsTransform: {fileID: 2835231151801614190}
     HexViewPrefab: {fileID: 6729298352975993245, guid: 5408d3f8c20356340b5a23b866702a04, type: 3}
---- !u!65 &4429532189779194917
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7602558010962013536}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7892421679109295929
 GameObject:
   m_ObjectHideFlags: 0

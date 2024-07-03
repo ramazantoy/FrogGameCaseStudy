@@ -9,7 +9,12 @@ namespace OrientationScripts
     {
         [SerializeField]
         private OrientationData _properties;
-        
+
+        public override void SetDirection(Direction direction)
+        {
+            
+        }
+
         public override void OnAction()
         {
             throw new System.NotImplementedException();

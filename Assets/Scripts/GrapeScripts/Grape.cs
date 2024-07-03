@@ -9,7 +9,12 @@ namespace GrapeScripts
     {
         [SerializeField]
         private GrapeData _properties;
-        
+
+        public override void SetDirection(Direction direction)
+        {
+            
+        }
+
         public override void OnAction()
         {
          

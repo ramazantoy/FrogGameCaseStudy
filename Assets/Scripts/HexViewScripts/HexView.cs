@@ -10,8 +10,6 @@ namespace HexViewScripts
     public class HexView : MonoBehaviour
     {
         [SerializeField] private HexViewData _properties;
-
-
         [SerializeField] private Direction _direction;
         [SerializeField] private HexViewElementType _hexViewElementType;
         [SerializeField] private ColorType _targetColorType;
@@ -39,10 +37,15 @@ namespace HexViewScripts
         {
 
             _hexViewElement = Instantiate(_properties.HexViewElementPrefabs[(int)dto.HexViewElementType], _properties.HexViewTransform);
+            _hexViewElement.MyHexView = this;
             _hexViewElement.transform.localPosition = new Vector3(0, 0, -0.025f);
+
+            _hexViewElement.gameObject.name = $"{dto.HexViewElementType}_{dto.HexViewColorType}";
             
             _hexViewElementType = dto.HexViewElementType;
             _targetColorType = dto.HexViewColorType;
+            
+            _hexViewElement.SetDirection(dto.Direction);
             
             SetOutLineColor(_targetColorType);
             

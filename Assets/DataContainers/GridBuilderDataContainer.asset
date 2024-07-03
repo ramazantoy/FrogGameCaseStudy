@@ -145,4 +145,4 @@ MonoBehaviour:
       Value:
       - Direction: 0
         HexViewElementType: 1
-        HexViewColorType: 0
+        HexViewColorType: 4
