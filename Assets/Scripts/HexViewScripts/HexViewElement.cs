@@ -6,6 +6,9 @@ namespace HexViewScripts
 {
     public abstract class HexViewElement : MonoBehaviour,IHexViewElement
     {
+
+        public ColorType ColorType { get; set; }
+        public Vector2Int Coordinate { get; set; }
         public abstract void SetDirection(Direction direction);
         public HexView MyHexView { get; set; }
         public abstract void OnAction();

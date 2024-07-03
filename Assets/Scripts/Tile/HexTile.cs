@@ -41,7 +41,7 @@ namespace Tile
             {
                 var hexView = Instantiate(_properties.HexViewPrefab, _properties.HexViewsTransform);
                 hexView.gameObject.SetActive(true);
-                hexView.SetHexView(hexViewDto);
+                hexView.SetHexView(hexViewDto,TileCoordinate);
                 hexView.transform.localPosition = new Vector3(0, 0, .15f * _hexViews.Count);
                 _hexViews.Add(hexView);
             }

@@ -37,7 +37,8 @@ namespace HexViewScripts
         /// Sets the hex view properties based on the provided HexViewDto object. This is used to configure child settings when the game starts.
         /// </summary>
         /// <param name="dto">HexViewDto object containing the properties to set for the hex view.</param>
-        public void SetHexView(HexViewDto dto)
+        /// <param name="coordinate"></param>
+        public void SetHexView(HexViewDto dto,Vector2Int coordinate)
         {
 
 #if UNITY_EDITOR
@@ -58,6 +59,9 @@ namespace HexViewScripts
             SetOutLineColor(dto.HexViewColorType);
             
             _hexViewElement.SetColor(dto.HexViewColorType);
+
+            _hexViewElement.Coordinate = coordinate;
+            _hexViewElement.ColorType = dto.HexViewColorType;
 
 
 

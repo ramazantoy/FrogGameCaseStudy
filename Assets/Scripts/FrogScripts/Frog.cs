@@ -1,5 +1,7 @@
 using System;
 using Enums;
+using Extensions;
+using FrogScripts.Tongue;
 using HexViewScripts;
 using UnityEngine;
 
@@ -13,6 +15,11 @@ namespace FrogScripts
         [SerializeField]
         private FrogData _properties;
         
+        [SerializeField]
+        private FrogTongue _frogTongue;
+
+        private static readonly int In = Animator.StringToHash("IN");
+
         /// <summary>
         /// Gets or sets the direction of the frog.
         /// </summary>
@@ -55,7 +62,16 @@ namespace FrogScripts
 
         private void OnMouseDown()
         {
-            Debug.Log("ÇAÇA "+gameObject.name);
+            if (_frogTongue.TongueState == TongueState.Idle)
+            {
+                _properties.FrogAnimator.SetTrigger(In);
+                _frogTongue.StartExtending(Coordinate,FrogDirection,ColorType);
+            }
+        }
+
+        public void OnMovementDone()
+        {
+            
         }
     }
 }

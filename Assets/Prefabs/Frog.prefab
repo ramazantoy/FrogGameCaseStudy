@@ -149,6 +149,7 @@ MonoBehaviour:
     FrogAnimator: {fileID: 3719694018302911747}
     _frogMeshRenderer: {fileID: 1667087844271928693}
     _frogMaterialData: {fileID: 11400000, guid: ef3a0ec8309d36148aa812fc58170d97, type: 2}
+  _frogTongue: {fileID: 3289160894135772058}
 --- !u!65 &6966192449116412241
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2755,7 +2756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b17a32aac267c4fbdd5bc1a92f6a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _myFrog: {fileID: 4984005570556432917}
+  _tongueState: 0
 --- !u!1 &9034086625324140644
 GameObject:
   m_ObjectHideFlags: 0

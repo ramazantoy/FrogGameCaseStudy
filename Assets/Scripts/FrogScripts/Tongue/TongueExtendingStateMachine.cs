@@ -23,7 +23,7 @@ namespace FrogScripts.Tongue
 
         public override void OnExit()
         {
-            
+            _tongue.OnExtendingStepDone();
         }
         
         private IEnumerator ExtendTongue()
@@ -31,6 +31,7 @@ namespace FrogScripts.Tongue
             
             var currentPositionCount = _lineRenderer.positionCount;
             var targetPoint = _tongue.TargetPoint;
+            targetPoint.z = -.2f;
             var startPoint = _lineRenderer.GetPosition(currentPositionCount - 1);
             
             var startingIndex = currentPositionCount;
@@ -45,6 +46,8 @@ namespace FrogScripts.Tongue
                 _lineRenderer.SetPosition(startingIndex + i-1, position);
                 yield return new WaitForSeconds(0.01f);
             }
+            
+            OnExit();
         }
 
 

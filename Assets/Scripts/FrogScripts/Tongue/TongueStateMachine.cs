@@ -7,9 +7,10 @@ namespace FrogScripts.Tongue
         protected readonly FrogTongue _tongue;
         protected readonly LineRenderer _lineRenderer;
 
-        protected TongueStateMachine(FrogTongue tongue,LineRenderer _lineRenderer)
+        protected TongueStateMachine(FrogTongue tongue,LineRenderer lineRenderer)
         {
             _tongue = tongue;
+            _lineRenderer = lineRenderer;
         }
 
         public abstract void OnEnter();
