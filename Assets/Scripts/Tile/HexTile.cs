@@ -25,7 +25,7 @@ namespace Tile
 
         private void Awake()
         {
-            _properties.EmpyViewObject.SetActive(_hexViews.Count <= 0);
+            _properties.EmpyViewObject.SetActive(_hexViews.Count == 0);
             
         }
 
@@ -34,7 +34,7 @@ namespace Tile
             return TileCoordinate.GetCoordinate(direction);
         }
 
-        public void SetHexViews(List<HexViewDto> hexViewDtos)
+        public void SetElementData(List<HexViewDto> hexViewDtos)
         {
             _hexViews = new List<HexView>();
             foreach (var hexViewDto in hexViewDtos)
@@ -42,7 +42,7 @@ namespace Tile
                 var hexView = Instantiate(_properties.HexViewPrefab, _properties.HexViewsTransform);
                 hexView.gameObject.SetActive(true);
                 hexView.SetHexView(hexViewDto);
-                hexView.transform.localPosition = new Vector3(0, 0, 1 * _hexViews.Count);
+                hexView.transform.localPosition = new Vector3(0, 0, .15f * _hexViews.Count);
                 _hexViews.Add(hexView);
             }
         }

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1804699357035541589
 Transform:
   m_ObjectHideFlags: 0
@@ -47,8 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _properties:
-    OutLineMaterialDataContainer: {fileID: 0}
-    OutLineMeshRenderer: {fileID: 0}
+    HexViewTransform: {fileID: 8343541238979468477}
+    BaseMaterial: {fileID: 2100000, guid: 4cbc0a257eaca4545b8bb90d3011300c, type: 2}
+    OutLineMaterialDataContainer: {fileID: 11400000, guid: ea2721193710baf49bf3e3a0ebd091a1, type: 2}
+    OutLineMeshRenderer: {fileID: 9097279507354643237}
+    HexViewElementPrefabs:
+    - {fileID: 4984005570556432917, guid: 85ade49faed48ad46bb85750c7a7d56c, type: 3}
+    - {fileID: 2248989272209668465, guid: cad2437b1d497394db411be9b5234518, type: 3}
+    - {fileID: 1060500764279422444, guid: 1041bf48c5302bb47b94e25a70d66383, type: 3}
+  _direction: 0
   _hexViewElementType: 0
   _targetColorType: 0
 --- !u!1 &7296108417519700720
@@ -77,13 +84,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7296108417519700720}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -0.000000038146972}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1804699357035541589}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &6459552519558307823
 MeshFilter:
   m_ObjectHideFlags: 0

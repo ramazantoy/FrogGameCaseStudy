@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Dtos;
 using Tile;
 using UnityEditor;
@@ -11,13 +12,9 @@ namespace GridSystem
     public class GridBuilder : MonoBehaviour
     {
         [SerializeField] private GridBuilderDataContainer _gridBuilderDataContainer;
-
-        
-     
         
         private HexTile[,] _tiles;
-
-        private Dictionary<Vector2Int, List<HexViewDto>> _levelDictionary;
+        
 
 #if UNITY_EDITOR
     
@@ -54,6 +51,8 @@ namespace GridSystem
             var yOffset = _gridBuilderDataContainer.YOffset;
             var tilePref = _gridBuilderDataContainer.TilePref;
 
+            var levelDictionary = _gridBuilderDataContainer.LevelBaseSettings[0].LevelTilesViews.ToDictionary(item => item.Key, item => item.Value);
+
             if (!onEditor)
             {
                 _tiles = new HexTile[gridWidth, gridHeight];
@@ -85,11 +84,21 @@ namespace GridSystem
                     tileTemp.name = $"HEX_{x}-{y}";
                     tileTemp.TileCoordinate = new Vector2Int(x, y);
 
-                    if (!onEditor)
+                    if (onEditor)
                     {
-                        _tiles[x, y] = tileTemp;
+                        tileTemp.gameObject.SetActive(true);
+                        continue;
                     }
-               
+                    
+                    
+                    _tiles[x, y] = tileTemp;
+                        
+                    if (levelDictionary.TryGetValue(new Vector2Int(x, y), out List<HexViewDto> viewData))
+                    {
+                        tileTemp.SetElementData(viewData);
+                    }
+                    tileTemp.gameObject.SetActive(true);
+
                 }
             }
 

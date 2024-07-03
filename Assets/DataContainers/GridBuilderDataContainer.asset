@@ -32,60 +32,117 @@ MonoBehaviour:
         HexViewElementType: 1
         HexViewColorType: 0
     - Key: {x: 0, y: 2}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 0
     - Key: {x: 0, y: 3}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 0
     - Key: {x: 0, y: 4}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 0
     - Key: {x: 1, y: 0}
       Value:
       - Direction: 2
         HexViewElementType: 0
         HexViewColorType: 1
     - Key: {x: 1, y: 1}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 1
     - Key: {x: 1, y: 2}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 1
     - Key: {x: 1, y: 3}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 1
     - Key: {x: 1, y: 4}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 1
     - Key: {x: 2, y: 0}
       Value:
       - Direction: 2
         HexViewElementType: 0
         HexViewColorType: 2
     - Key: {x: 2, y: 1}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 2
     - Key: {x: 2, y: 2}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 2
     - Key: {x: 2, y: 3}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 2
     - Key: {x: 2, y: 4}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 2
     - Key: {x: 3, y: 0}
       Value:
       - Direction: 2
         HexViewElementType: 0
         HexViewColorType: 3
     - Key: {x: 3, y: 1}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 3
     - Key: {x: 3, y: 2}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 3
     - Key: {x: 3, y: 3}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 3
     - Key: {x: 3, y: 4}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 3
     - Key: {x: 4, y: 0}
       Value:
       - Direction: 2
         HexViewElementType: 0
         HexViewColorType: 4
     - Key: {x: 4, y: 1}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 4
     - Key: {x: 4, y: 2}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 4
     - Key: {x: 4, y: 3}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 4
     - Key: {x: 4, y: 4}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 0

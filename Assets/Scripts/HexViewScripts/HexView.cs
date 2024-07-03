@@ -25,8 +25,10 @@ namespace HexViewScripts
         ///
         private void SetOutLineColor(ColorType colorType)
         {
-            _properties.OutLineMeshRenderer.materials[1] =
-                _properties.OutLineMaterialDataContainer.GetMaterial(colorType);
+            var materials = _properties.OutLineMeshRenderer.materials;
+            materials[0] = _properties.BaseMaterial;
+            materials[1] = _properties.OutLineMaterialDataContainer.GetMaterial(colorType);
+            _properties.OutLineMeshRenderer.materials = materials;
         }
 
         /// <summary>
@@ -35,11 +37,19 @@ namespace HexViewScripts
         /// <param name="dto">HexViewDto object containing the properties to set for the hex view.</param>
         public void SetHexView(HexViewDto dto)
         {
+
+            _hexViewElement = Instantiate(_properties.HexViewElementPrefabs[(int)dto.HexViewElementType], _properties.HexViewTransform);
+            _hexViewElement.transform.localPosition = new Vector3(0, 0, -0.025f);
+            
             _hexViewElementType = dto.HexViewElementType;
             _targetColorType = dto.HexViewColorType;
             
             SetOutLineColor(_targetColorType);
+            
             _hexViewElement.SetColor(_targetColorType);
+            
+       
+            
         }
 
 #if UNITY_EDITOR
