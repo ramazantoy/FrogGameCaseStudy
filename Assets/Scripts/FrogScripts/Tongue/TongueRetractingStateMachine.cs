@@ -31,22 +31,18 @@ namespace FrogScripts.Tongue
         private async UniTaskVoid RetractTongue()
         {
             var usedPoints = _tongue.GetUsedPoints;
-            if (usedPoints.Count < 2)
-            {
-                return;
-            }
-            
-            for (var i = usedPoints.Count - 1; i > 0; i--)
+
+            for (int i = 2; i < usedPoints.Count; i++)
             {
                 var tasks = new List<UniTask>();
-                for (int j = usedPoints.Count - 1; j >= i; j--)
+
+                for (int j = i; j > 0; j--)
                 {
-                    var targetPos = usedPoints[i - 1].transform.position;
+                    var targetPos = usedPoints[j - 1].transform.position;
                     tasks.Add(usedPoints[j].transform.DOMove(targetPos, 0.25f).ToUniTask());
                 }
                 
                 await UniTask.WhenAll(tasks);
-
                 await UniTask.Yield();
             }
             OnExit();
