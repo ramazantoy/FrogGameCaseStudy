@@ -26,7 +26,7 @@ namespace HexViewScripts
         private void SetOutLineColor(ColorType colorType)
         {
             _properties.OutLineMeshRenderer.materials[1] =
-                _properties.OutLineMaterialDataContainer.GetOutLineMaterial(colorType);
+                _properties.OutLineMaterialDataContainer.GetMaterial(colorType);
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace Containers
     {
         [SerializeField] private Material[] _materials;
 
-       public Material GetOutLineMaterial(ColorType colorType)
+       public Material GetMaterial(ColorType colorType)
        {
            return _materials[(int)colorType];
        }

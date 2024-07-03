@@ -2,7 +2,7 @@ using System;
 using Enums;
 using UnityEngine;
 
-namespace Tile
+namespace Extensions
 {
     public static class TileExtensions 
     {
