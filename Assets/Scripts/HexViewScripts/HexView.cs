@@ -40,6 +40,12 @@ namespace HexViewScripts
         public void SetHexView(HexViewDto dto)
         {
 
+#if UNITY_EDITOR
+            _direction = dto.Direction;
+            _targetColorType = dto.HexViewColorType;
+            _hexViewElementType = dto.HexViewElementType;
+#endif
+
             _hexViewElement = Instantiate(_properties.HexViewElementPrefabs[(int)dto.HexViewElementType], _properties.HexViewTransform);
             _hexViewElement.MyHexView = this;
             _hexViewElement.transform.localPosition = new Vector3(0, 0, -0.025f);
@@ -49,9 +55,9 @@ namespace HexViewScripts
             
             _hexViewElement.SetDirection(dto.Direction);
             
-            SetOutLineColor(_targetColorType);
+            SetOutLineColor(dto.HexViewColorType);
             
-            _hexViewElement.SetColor(_targetColorType);
+            _hexViewElement.SetColor(dto.HexViewColorType);
 
 
 
