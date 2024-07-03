@@ -1,5 +1,6 @@
 using UnityEngine;
-using System.Collections;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 namespace FrogScripts.Tongue
 {
@@ -12,8 +13,8 @@ namespace FrogScripts.Tongue
             
         }
         public override void OnEnter()
-        {
-            _tongue.StartCoroutine(ExtendTongue());
+        { 
+            ExtendTongue().Forget();
         }
 
         public override void OnTick()
@@ -23,33 +24,16 @@ namespace FrogScripts.Tongue
 
         public override void OnExit()
         {
-            _tongue.OnExtendingStepDone();
+            _tongue.OnExtendingStep();
         }
         
-        private IEnumerator ExtendTongue()
+        private async UniTaskVoid ExtendTongue()
         {
+            var obj = _tongue.GetPoint();
             
-            var currentPositionCount = _lineRenderer.positionCount;
-            var targetPoint = _tongue.TargetPoint;
-            targetPoint.z = -.2f;
-            var startPoint = _lineRenderer.GetPosition(currentPositionCount - 1);
-            
-            var startingIndex = currentPositionCount;
-
-            for (var i = 1; i <= _numOfMovementPoints; i++)
-            {
-                var t = i / (float)(_numOfMovementPoints + 1); 
-
-                var horizontalPosition = Vector3.Lerp(startPoint, targetPoint, t);
-                var position = new Vector3(horizontalPosition.x, horizontalPosition.y, horizontalPosition.z);
-                _lineRenderer.positionCount++; 
-                _lineRenderer.SetPosition(startingIndex + i-1, position);
-                yield return new WaitForSeconds(0.01f);
-            }
-            
+            await obj.transform.DOMove(_tongue.TargetPoint, .25f);
             OnExit();
         }
-
 
        
     }

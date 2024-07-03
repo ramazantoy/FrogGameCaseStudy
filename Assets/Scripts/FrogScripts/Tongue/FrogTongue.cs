@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Enums;
 using Extensions;
 using Tile;
@@ -9,14 +10,31 @@ namespace FrogScripts.Tongue
     public class FrogTongue : MonoBehaviour
     { 
         private LineRenderer _lineRenderer;
-        private Vector3 _startPoint;
 
-      
+        [SerializeField]
+        private GameObject _tonguePointPref;
+
+        private List<GameObject> _availablePoints = new List<GameObject>();
+        [SerializeField]
+        private List<GameObject> _usedPoints;
         
+        
+        
+        public Vector3 TargetPoint { get; set; }
+
+        private void FixedUpdate()
+        {
+            _lineRenderer.positionCount = _usedPoints.Count;
+            
+            for (var i = 0; i < _usedPoints.Count; i++)
+            {
+                _lineRenderer.SetPosition(i, _usedPoints[i].transform.position);
+            }
+        }
+
         [SerializeField]
         private TongueState _tongueState;
-
-
+        
         public TongueState TongueState => _tongueState;
         
         private TongueStateMachine _currentStateMachine;
@@ -31,8 +49,7 @@ namespace FrogScripts.Tongue
         private Direction _movementDirection;
 
         #endregion
-
-        public Vector3 TargetPoint { get; set; }
+        
         
 
         private void Init()
@@ -45,12 +62,8 @@ namespace FrogScripts.Tongue
         
         private void Start()
         {
-            _startPoint = transform.position + new Vector3(0, -.1f, -.2f);
             _lineRenderer = transform.GetComponent<LineRenderer>();
-            
-            _lineRenderer.positionCount = 1;
-            _lineRenderer.SetPosition(0,_startPoint);
-            
+
             Init();
             SetTongueState(TongueState.Idle);
         }
@@ -85,37 +98,35 @@ namespace FrogScripts.Tongue
         {
             _targetColorType = targetColorType;
             _movementDirection = direction;
-            
             _targetCoordinate = currentCoordinate.GetCoordinate(direction);
             
-
             var targetTile = GetTargetTile();
-            Debug.LogError(_targetCoordinate);
-            Debug.LogError("Target Tile " +targetTile);
+            
             if (targetTile == null)
             {
-                SetTongueState(TongueState.Idle); 
-                return;
+              SetTongueState(TongueState.Idle);
             }
-            TargetPoint = targetTile.transform.position;
+            var targetTilePos = targetTile.transform.position;
+            TargetPoint = new Vector3(targetTilePos.x, targetTilePos.y, -.25f);
             SetTongueState(TongueState.Extending);
         }
 
-        public void OnExtendingStepDone()
+        public void OnExtendingStep()
         {
             
             _targetCoordinate = _targetCoordinate.GetCoordinate(_movementDirection);
             
             var targetTile = GetTargetTile();
             
-            Debug.Log(targetTile);
-            
             if (targetTile == null)
             {
                 SetTongueState(TongueState.Retracting);
                 return;
             }
-            TargetPoint = targetTile.transform.position;
+
+            var targetTilePos = targetTile.transform.position;
+            TargetPoint = new Vector3(targetTilePos.x, targetTilePos.y, -.25f);
+            
             _currentStateMachine.OnEnter();
         }
 
@@ -124,7 +135,36 @@ namespace FrogScripts.Tongue
            return GameFuncs.GetTile(_targetCoordinate);
         }
 
-        
-        
+        public GameObject GetPoint()
+        {
+            if (_availablePoints.Count > 0)
+            {
+                var point = _availablePoints[0];
+                point.transform.position = GetLastPoint;
+                _availablePoints.RemoveAt(0);
+                _usedPoints.Add(point);
+                return point;
+            }
+
+            var newPoint = Instantiate(_tonguePointPref, transform);
+            newPoint.transform.position = GetLastPoint;
+            _usedPoints.Add(newPoint);
+            return newPoint;
+        }
+
+        private Vector3 GetLastPoint => _usedPoints[^1].gameObject.transform.position;
+
+        public List<GameObject> GetUsedPoints => _usedPoints;
+
+        public void OnRetractingDone()
+        {
+         
+            gameObject.SetActive(false);
+            
+        }
+
+
+
+
     }
 }
