@@ -16,7 +16,7 @@ namespace FrogScripts
         /// <summary>
         /// Gets or sets the direction of the frog.
         /// </summary>
-        public Direction FrogDirection { get; private set; }
+        private Direction FrogDirection { get; set; }
 
         public override void SetDirection(Direction direction)
         {

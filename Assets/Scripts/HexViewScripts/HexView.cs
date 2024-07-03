@@ -10,9 +10,13 @@ namespace HexViewScripts
     public class HexView : MonoBehaviour
     {
         [SerializeField] private HexViewData _properties;
+#if UNITY_EDITOR
         [SerializeField] private Direction _direction;
         [SerializeField] private HexViewElementType _hexViewElementType;
         [SerializeField] private ColorType _targetColorType;
+#endif
+     
+      
 
         private HexViewElement _hexViewElement;
 
@@ -42,17 +46,15 @@ namespace HexViewScripts
 
             _hexViewElement.gameObject.name = $"{dto.HexViewElementType}_{dto.HexViewColorType}";
             
-            _hexViewElementType = dto.HexViewElementType;
-            _targetColorType = dto.HexViewColorType;
             
             _hexViewElement.SetDirection(dto.Direction);
             
             SetOutLineColor(_targetColorType);
             
             _hexViewElement.SetColor(_targetColorType);
-            
-       
-            
+
+
+
         }
 
 #if UNITY_EDITOR
