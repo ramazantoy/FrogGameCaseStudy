@@ -3,11 +3,11 @@ using System.Collections;
 
 namespace FrogScripts.Tongue
 {
-    public  class TongueExtendingState : TongueState
+    public  class TongueExtendingStateMachine : TongueStateMachine
     {
         private readonly int _numOfMovementPoints = 50;
       
-        public TongueExtendingState(FrogTongue tongue,LineRenderer lineRenderer) : base(tongue,lineRenderer)
+        public TongueExtendingStateMachine(FrogTongue tongue,LineRenderer lineRenderer) : base(tongue,lineRenderer)
         {
             
         }

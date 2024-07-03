@@ -8,47 +8,71 @@ namespace FrogScripts.Tongue
 {
     public class FrogTongue : MonoBehaviour
     {
-        [SerializeField]
-        private Frog _myFrog;
-        
-        
         private LineRenderer _lineRenderer;
         
-        
         private Vector3 _startPoint;
-        private Vector3 _targetPoint;
+        
+        private TongueState _tongueState;
+        
+        private TongueStateMachine _currentStateMachine;
+        private TongueIdleStateMachine _tongueIdleStateMachine;
+        private TongueExtendingStateMachine _tongueExtendingStateMachine;
+        private TongueRetractingStateMachine _tongueRetractingStateMachine;
 
-        private TongueStateEnum _tongueStateEnum;
-        
-        private TongueState _currentState;
-      
-        
-        public Vector3 TargetPoint => _targetPoint;
+
+        public Vector3 TargetPoint
+        {
+            get
+            {
+                return Vector3.zero;
+            }
+        }
+
+        private void Init()
+        {
+            _tongueIdleStateMachine = new TongueIdleStateMachine(this, _lineRenderer);
+            _tongueExtendingStateMachine = new TongueExtendingStateMachine(this, _lineRenderer);
+            _tongueRetractingStateMachine = new TongueRetractingStateMachine(this, _lineRenderer);
+            
+        }
         
         private void Start()
         {
-            _startPoint = _myFrog.transform.position + new Vector3(0, -.1f, -.2f);
+            _startPoint = transform.position + new Vector3(0, -.1f, -.2f);
             _lineRenderer = transform.GetComponent<LineRenderer>();
             
             _lineRenderer.positionCount = 1;
             _lineRenderer.SetPosition(0,_startPoint);
-
-
-
-            _currentState = new TongueIdleState(this,_lineRenderer);
-            _tongueStateEnum = TongueStateEnum.Idle;
             
-            
-            _currentState.OnEnter();
+            SetTongueState(TongueState.Idle);
         }
 
-        public void ClearRenderer()
+        private void SetTongueState(TongueState tongueState)
         {
-            if(_tongueStateEnum==TongueStateEnum.Idle) return;
+            if(tongueState==_tongueState) return;
+
+            _tongueState = tongueState;
             
-            _lineRenderer.positionCount = 0;
-            _tongueStateEnum = TongueStateEnum.Idle;
+            switch (tongueState)
+            {
+                case TongueState.Idle :
+                    _currentStateMachine = _tongueIdleStateMachine;
+                    _currentStateMachine.OnEnter();
+                    break;
+                case TongueState.Retracting :
+                    _currentStateMachine = _tongueRetractingStateMachine;
+                    _currentStateMachine.OnEnter();
+                    break;
+                case TongueState.Extending :
+                    _currentStateMachine = _tongueExtendingStateMachine;
+                    _currentStateMachine.OnEnter();
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tongueState), tongueState, null);
+            }
         }
+        
         
     }
 }

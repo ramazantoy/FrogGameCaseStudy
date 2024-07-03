@@ -2,7 +2,7 @@
 
 namespace Enums
 {
-    public enum TongueStateEnum 
+    public enum TongueState 
     {
          Idle=0,
          Extending=1,

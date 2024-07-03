@@ -2,16 +2,16 @@ using UnityEngine;
 
 namespace FrogScripts.Tongue
 {
-    public class TongueIdleState : TongueState
+    public class TongueIdleStateMachine : TongueStateMachine
     {
-        public TongueIdleState(FrogTongue tongue,LineRenderer lineRenderer) : base(tongue,lineRenderer)
+        public TongueIdleStateMachine(FrogTongue tongue,LineRenderer lineRenderer) : base(tongue,lineRenderer)
         {
             
         }
 
         public override void OnEnter()
         { 
-            _tongue.ClearRenderer();
+            _lineRenderer.positionCount = 1;
         }
 
         public override void OnTick()

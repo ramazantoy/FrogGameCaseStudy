@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace FrogScripts.Tongue
 {
-    public abstract class TongueState 
+    public abstract class TongueStateMachine 
     {
         protected readonly FrogTongue _tongue;
         protected readonly LineRenderer _lineRenderer;
 
-        protected TongueState(FrogTongue tongue,LineRenderer _lineRenderer)
+        protected TongueStateMachine(FrogTongue tongue,LineRenderer _lineRenderer)
         {
             _tongue = tongue;
         }
