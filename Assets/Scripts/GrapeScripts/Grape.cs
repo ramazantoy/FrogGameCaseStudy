@@ -1,6 +1,8 @@
 using System;
 using DG.Tweening;
 using Enums;
+using Events.EventBusScripts;
+using Events.GameEvents;
 using HexViewScripts;
 using UnityEngine;
 

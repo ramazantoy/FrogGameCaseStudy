@@ -16,11 +16,12 @@ namespace Audio
         private EventBinding<OnCollectItemEvent> _onCollectItemEvent;
         private EventBinding<OnNewHexEvent> _onNewHexEvent;
         private EventBinding<OnWrongEvent> _onWrongEvent;
+        private EventBinding<OnTriggerEvent> _onTriggerEvent;
         private void Start()
         {
-            _audioSource.clip = _audioManagerDataContainer.MainSound;
+           _audioSource.clip = _audioManagerDataContainer.MainSound;
 
-            SetMusicSettings();
+           SetMusicSettings();
         }
 
         private void OnEnable()
@@ -29,11 +30,13 @@ namespace Audio
             _onCollectItemEvent = new EventBinding<OnCollectItemEvent>(PlayCollectItemSound);
             _onNewHexEvent = new EventBinding<OnNewHexEvent>(PlayOnNewHexSound);
             _onWrongEvent = new EventBinding<OnWrongEvent>(PlayWrongSound);
+            _onTriggerEvent = new EventBinding<OnTriggerEvent>(PlayTriggerSound);
 
             EventBus<OnClickFrogEvent>.Subscribe(_onClickEvent);
             EventBus<OnCollectItemEvent>.Subscribe(_onCollectItemEvent);
             EventBus<OnNewHexEvent>.Subscribe(_onNewHexEvent);
             EventBus<OnWrongEvent>.Subscribe(_onWrongEvent);
+            EventBus<OnTriggerEvent>.Subscribe(_onTriggerEvent);
         }
 
         private void OnDisable()
@@ -56,7 +59,7 @@ namespace Audio
         {
             if (!_audioManagerDataContainer.GameSaveDataContainer.Data.IsSoundEffectsOn) return;
 
-            _audioSource.PlayOneShot(_audioManagerDataContainer.CollectItemSound);
+          _audioSource.PlayOneShot(_audioManagerDataContainer.CollectItemSound);
         }
 
         private void PlayOnClickFrogSound()
@@ -75,6 +78,12 @@ namespace Audio
         {
             if (!_audioManagerDataContainer.GameSaveDataContainer.Data.IsSoundEffectsOn) return;
             _audioSource.PlayOneShot(_audioManagerDataContainer.OnWrongSound);
+        }
+
+        private void PlayTriggerSound()
+        {
+            if (!_audioManagerDataContainer.GameSaveDataContainer.Data.IsSoundEffectsOn) return;
+            _audioSource.PlayOneShot(_audioManagerDataContainer.OnTiggerSound);
         }
     }
 }

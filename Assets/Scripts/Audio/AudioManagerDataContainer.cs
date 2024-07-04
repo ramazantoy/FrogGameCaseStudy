@@ -13,5 +13,6 @@ namespace Audio
         public AudioClip OnClickFrogSound;
         public AudioClip OnNewHexSound;
         public AudioClip OnWrongSound;
+        public AudioClip OnTiggerSound;
     }
 }

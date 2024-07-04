@@ -18,3 +18,4 @@ MonoBehaviour:
   OnClickFrogSound: {fileID: 8300000, guid: ad354a1befd3ff849add69c88e6d5830, type: 3}
   OnNewHexSound: {fileID: 8300000, guid: 62d5de15ee9263d41a2aebe2204e9a64, type: 3}
   OnWrongSound: {fileID: 8300000, guid: 9d5a85160d2e93046bc0b0d422f669ae, type: 3}
+  OnTiggerSound: {fileID: 8300000, guid: 50df5111710bc73458e4dc0de44964d3, type: 3}

@@ -2,6 +2,8 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Enums;
+using Events.EventBusScripts;
+using Events.GameEvents;
 
 namespace FrogScripts.Tongue
 {
@@ -51,18 +53,26 @@ namespace FrogScripts.Tongue
         private async UniTaskVoid ExtendTongue()
         {
             var obj = _tongue.GetPoint();
-
-            await obj.transform.DOMove(_tongue.TargetPoint, .25f);
-
+            
             var currentElement = _tongue.GetCurrentHexView().HexViewElement;
 
 
+            if (currentElement.ColorType == _tongue.TargetColorType)
+            {
+                EventBus<OnTriggerEvent>.Publish(new OnTriggerEvent());
+            }
+         
+        
+            await obj.transform.DOMove(_tongue.TargetPoint, .25f);
+
+       
             if (currentElement.ColorType != _tongue.TargetColorType)
             {
                 _tongue.OnExtendingFail();
                 return;
             }
 
+       
             var hexView = _tongue.GetCurrentHexView();
             hexView.HexViewElement.ScaleUpDown();
 
