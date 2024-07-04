@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Enums;
+using Events.EventBusScripts;
+using Events.GameEvents;
 using Extensions;
 using HexViewScripts;
 using Tile;
@@ -185,7 +187,7 @@ namespace FrogScripts.Tongue
             }
 
             var targetTilePos = targetTile.transform.position;
-            TargetPoint = new Vector3(targetTilePos.x, targetTilePos.y, -.25f);
+            TargetPoint = new Vector3(targetTilePos.x, targetTilePos.y, -.35f);
             SetTongueState(TongueState.Extending);
         }
 
@@ -312,6 +314,7 @@ namespace FrogScripts.Tongue
         public void OnExtendingFail()
         {
             IsMovementSuccessfullyCompleted = false;
+            EventBus<OnWrongEvent>.Publish(new OnWrongEvent());
             SetTongueState(TongueState.Retracting);
         }
 

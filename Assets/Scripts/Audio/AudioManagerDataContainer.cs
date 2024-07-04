@@ -12,5 +12,6 @@ namespace Audio
         public AudioClip CollectItemSound; 
         public AudioClip OnClickFrogSound;
         public AudioClip OnNewHexSound;
+        public AudioClip OnWrongSound;
     }
 }

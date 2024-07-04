@@ -15,7 +15,7 @@ namespace Audio
         private EventBinding<OnClickFrogEvent> _onClickEvent;
         private EventBinding<OnCollectItemEvent> _onCollectItemEvent;
         private EventBinding<OnNewHexEvent> _onNewHexEvent;
-
+        private EventBinding<OnWrongEvent> _onWrongEvent;
         private void Start()
         {
             _audioSource.clip = _audioManagerDataContainer.MainSound;
@@ -28,10 +28,12 @@ namespace Audio
             _onClickEvent = new EventBinding<OnClickFrogEvent>(PlayOnClickFrogSound);
             _onCollectItemEvent = new EventBinding<OnCollectItemEvent>(PlayCollectItemSound);
             _onNewHexEvent = new EventBinding<OnNewHexEvent>(PlayOnNewHexSound);
+            _onWrongEvent = new EventBinding<OnWrongEvent>(PlayWrongSound);
 
             EventBus<OnClickFrogEvent>.Subscribe(_onClickEvent);
             EventBus<OnCollectItemEvent>.Subscribe(_onCollectItemEvent);
             EventBus<OnNewHexEvent>.Subscribe(_onNewHexEvent);
+            EventBus<OnWrongEvent>.Subscribe(_onWrongEvent);
         }
 
         private void OnDisable()
@@ -67,6 +69,12 @@ namespace Audio
         {
             if (!_audioManagerDataContainer.GameSaveDataContainer.Data.IsSoundEffectsOn) return;
             _audioSource.PlayOneShot(_audioManagerDataContainer.OnNewHexSound);
+        }
+
+        private void PlayWrongSound()
+        {
+            if (!_audioManagerDataContainer.GameSaveDataContainer.Data.IsSoundEffectsOn) return;
+            _audioSource.PlayOneShot(_audioManagerDataContainer.OnWrongSound);
         }
     }
 }
