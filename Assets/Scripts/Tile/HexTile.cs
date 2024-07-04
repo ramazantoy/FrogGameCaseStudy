@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Dtos;
 using Enums;
 using Extensions;
@@ -42,9 +44,11 @@ namespace Tile
                 var hexView = Instantiate(_properties.HexViewPrefab, _properties.HexViewsTransform);
                 hexView.gameObject.SetActive(true);
                 hexView.SetHexView(hexViewDto,TileCoordinate);
-                hexView.transform.localPosition = new Vector3(0, 0, .15f * _hexViews.Count);
+                hexView.transform.localPosition = new Vector3(0, 0, .25f * _hexViews.Count);
                 _hexViews.Add(hexView);
             }
+            
+            _hexViews[0].Ready();
         }
 
         public HexView GetTopStackElement()
@@ -55,6 +59,33 @@ namespace Tile
             }
 
             return null;
+        }
+
+        public async UniTaskVoid BlowTopElement()
+        {
+            if (_hexViews.Count >= 1)
+            {
+                await _hexViews[0].BlowYourSelf();
+                
+                _hexViews.RemoveAt(0);
+            }
+
+            RePosHexViews();
+
+        }
+
+        private void RePosHexViews()
+        {
+            if (_hexViews.Count <= 0)
+            {
+                _properties.EmpyViewObject.SetActive(true);
+                return;
+            }
+            for (var i = 0; i < _hexViews.Count; i++)
+            {
+                _hexViews[i].transform.DOLocalMove(new Vector3(0, 0, .25f) * i,.25f);
+            }
+            _hexViews[0].WakeUp();
         }
 
         public override void ScaleDown(float time)

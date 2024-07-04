@@ -29,21 +29,32 @@ namespace FrogScripts.Tongue
         [SerializeField]
         private List<GameObject> _usedPoints;
 
-        private List<HexView> _visitedViews = new List<HexView>();
+        private List<HexView> _visitedHexViews = new List<HexView>();
+        private List<HexTile> _visitedTiles = new List<HexTile>();
 
-        public void AddViewVisited(HexView hexView)
+
+
+        public void AddViewVisited()
         {
-            if(_visitedViews.Contains(hexView)) return;
-            _visitedViews.Add(hexView);
+            var hexTile = GetTargetTile();
+            
+            if(hexTile==null) return;
+            
+            if(_visitedTiles.Contains(hexTile)) return;
+            _visitedTiles.Add(hexTile);
+            
+            var hexView = hexTile.GetTopStackElement();
+            if(_visitedHexViews.Contains(hexView)) return;
+            _visitedHexViews.Add(hexView);
         }
 
         public HexView GetLastVisitedView()
         {
-            if (_visitedViews.Count <= 0) return null;
+            if (_visitedHexViews.Count <= 0) return null;
             
-            var view = _visitedViews[^1];
+            var view = _visitedHexViews[^1];
             
-            _visitedViews.RemoveAt(_visitedViews.Count-1);
+            _visitedHexViews.RemoveAt(_visitedHexViews.Count-1);
             return view;
         }
 
@@ -76,7 +87,7 @@ namespace FrogScripts.Tongue
         public ColorType TargetColorType { private set; get; }
         private Vector2Int _targetCoordinate;
         private Direction _movementDirection;
-        
+
         public bool IsMovementSuccessfullyCompleted { private set; get; }
         
         #endregion
@@ -199,8 +210,21 @@ namespace FrogScripts.Tongue
 
         public void OnRetractingDone()
         {
+            if (IsMovementSuccessfullyCompleted)
+            {
+                BlowYourSelf();
+            }
             ResetPoints();
             SetTongueState(TongueState.Idle);
+        }
+
+        private void BlowYourSelf()
+        {
+            foreach (var hexTile in _visitedTiles)
+            {
+                hexTile.BlowTopElement().Forget();
+            }
+            _myFrog.OnMovementDone();
         }
 
         private void ResetPoints()
@@ -218,7 +242,6 @@ namespace FrogScripts.Tongue
 
         public void OnExtendingFail()
         {
-            Debug.LogError("On Extending Fail");
             IsMovementSuccessfullyCompleted = false;
             SetTongueState(TongueState.Retracting);
         }

@@ -16,62 +16,6 @@ MonoBehaviour:
   YOffset: -0.95
   TilePref: {fileID: 551106295750609806, guid: 7c8a68345d054024085dc5bf4ddb0a40, type: 3}
   LevelBaseSettings:
-  - GridWidth: 3
-    GridHeight: 3
-    CameraPos: {x: 0.7, y: -7, z: -10}
-    CameraSize: 5
-    LevelTilesViews:
-    - Key: {x: 0, y: 0}
-      Value:
-      - Direction: 2
-        HexViewElementType: 0
-        HexViewColorType: 0
-    - Key: {x: 0, y: 1}
-      Value:
-      - Direction: 0
-        HexViewElementType: 1
-        HexViewColorType: 0
-    - Key: {x: 0, y: 2}
-      Value:
-      - Direction: 3
-        HexViewElementType: 2
-        HexViewColorType: 0
-    - Key: {x: 1, y: 0}
-      Value:
-      - Direction: 0
-        HexViewElementType: 0
-        HexViewColorType: 3
-    - Key: {x: 1, y: 1}
-      Value:
-      - Direction: 0
-        HexViewElementType: 1
-        HexViewColorType: 0
-      - Direction: 0
-        HexViewElementType: 1
-        HexViewColorType: 3
-    - Key: {x: 1, y: 2}
-      Value:
-      - Direction: 0
-        HexViewElementType: 1
-        HexViewColorType: 3
-    - Key: {x: 2, y: 0}
-      Value:
-      - Direction: 0
-        HexViewElementType: 0
-        HexViewColorType: 1
-    - Key: {x: 2, y: 1}
-      Value:
-      - Direction: 0
-        HexViewElementType: 1
-        HexViewColorType: 0
-      - Direction: 0
-        HexViewElementType: 1
-        HexViewColorType: 1
-    - Key: {x: 2, y: 2}
-      Value:
-      - Direction: 0
-        HexViewElementType: 1
-        HexViewColorType: 1
   - GridWidth: 5
     GridHeight: 5
     CameraPos: {x: 1.5, y: -7, z: -10}
@@ -202,3 +146,59 @@ MonoBehaviour:
       - Direction: 0
         HexViewElementType: 1
         HexViewColorType: 4
+  - GridWidth: 3
+    GridHeight: 3
+    CameraPos: {x: 0.7, y: -7, z: -10}
+    CameraSize: 5
+    LevelTilesViews:
+    - Key: {x: 0, y: 0}
+      Value:
+      - Direction: 2
+        HexViewElementType: 0
+        HexViewColorType: 0
+    - Key: {x: 0, y: 1}
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 0
+    - Key: {x: 0, y: 2}
+      Value:
+      - Direction: 3
+        HexViewElementType: 2
+        HexViewColorType: 0
+    - Key: {x: 1, y: 0}
+      Value:
+      - Direction: 2
+        HexViewElementType: 0
+        HexViewColorType: 3
+    - Key: {x: 1, y: 1}
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 0
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 3
+    - Key: {x: 1, y: 2}
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 3
+    - Key: {x: 2, y: 0}
+      Value:
+      - Direction: 2
+        HexViewElementType: 0
+        HexViewColorType: 1
+    - Key: {x: 2, y: 1}
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 0
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 1
+    - Key: {x: 2, y: 2}
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 1

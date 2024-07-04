@@ -44,7 +44,7 @@ namespace FrogScripts.Tongue
             var hexView = _tongue.GetCurrentHexView();
             hexView.HexViewElement.ScaleUpDown();
             
-            _tongue.AddViewVisited(hexView);
+            _tongue.AddViewVisited();
             
             
             if (currentElement.HexViewElementType == HexViewElementType.Direction)

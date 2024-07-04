@@ -1,5 +1,7 @@
 using System;
 using Containers;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Dtos;
 using Enums;
 using UnityEngine;
@@ -16,6 +18,10 @@ namespace HexViewScripts
         [SerializeField] private ColorType _targetColorType;
 #endif
 
+        public void Ready()
+        {
+            _hexViewElement.gameObject.SetActive(true);
+        }
 
         public HexViewElement HexViewElement => _hexViewElement;
 
@@ -64,11 +70,26 @@ namespace HexViewScripts
             _hexViewElement.Coordinate = coordinate;
             _hexViewElement.ColorType = dto.HexViewColorType;
             _hexViewElement.HexViewElementType = dto.HexViewElementType;
+            
+            _hexViewElement.gameObject.SetActive(false);
 
 
 
         }
 
+        public async UniTask BlowYourSelf()
+        {
+          await  transform.DOScale(Vector3.zero, .3f);
+          Destroy(gameObject);
+        }
+
+
+        public void WakeUp()
+        {
+            _hexViewElement.transform.localScale=Vector3.zero;
+            _hexViewElement.gameObject.SetActive(true);
+            _hexViewElement.transform.DOScale(Vector3.one, .25f);
+        }
 #if UNITY_EDITOR
         
         /// <summary>

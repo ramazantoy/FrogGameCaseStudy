@@ -92,7 +92,11 @@ namespace FrogScripts
     
         public void OnMovementDone()
         {
-            
+            var myHex = GameFuncs.GetTile(Coordinate);
+            if (myHex != null)
+            {
+                myHex.BlowTopElement().Forget();
+            }
         }
     }
 }

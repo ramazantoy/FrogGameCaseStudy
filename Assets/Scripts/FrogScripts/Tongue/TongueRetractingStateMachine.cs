@@ -33,16 +33,21 @@ namespace FrogScripts.Tongue
         {
             var usedPoints = _tongue.GetUsedPoints;
 
-            for (var i = usedPoints.Count-1; i >=0; i--)
+            if (_tongue.IsMovementSuccessfullyCompleted)
             {
-                var hexView = _tongue.GetLastVisitedView();
-                if (hexView != null && hexView.HexViewElement.HexViewElementType != HexViewElementType.Direction)
+                for (var i = usedPoints.Count-1; i >=0; i--)
                 {
+                    var hexView = _tongue.GetLastVisitedView();
+                    
+                    if (hexView == null || hexView.HexViewElement.HexViewElementType == HexViewElementType.Direction) continue;
+                    
                     hexView.HexViewElement.transform.parent = usedPoints[i].transform;
                     hexView.HexViewElement.transform.DOKill();
                     hexView.HexViewElement.transform.localScale = Vector3.one*4f;
                 }
             }
+
+           
             
             
             //i-1 i-2 i-3 i==0

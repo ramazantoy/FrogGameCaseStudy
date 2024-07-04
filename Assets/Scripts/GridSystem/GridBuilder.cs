@@ -5,6 +5,7 @@ using Dtos;
 using Tile;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using TileBase = Tile.TileBase;
 
 namespace GridSystem
@@ -12,15 +13,15 @@ namespace GridSystem
     public class GridBuilder : MonoBehaviour
     {
         [SerializeField] private GridBuilderDataContainer _gridBuilderDataContainer;
-        
+
         private HexTile[,] _tiles;
-        
+
 
 #if UNITY_EDITOR
-    
-        public List<HexTile> tileList;
-        public int gridWidth;
-        public int gridHeight;
+
+        public List<HexTile> TileList;
+        public int GridWidth;
+        public int GridHeight;
 #endif
 
         private void Start()
@@ -51,14 +52,20 @@ namespace GridSystem
             var yOffset = _gridBuilderDataContainer.YOffset;
             var tilePref = _gridBuilderDataContainer.TilePref;
 
-            var levelDictionary = _gridBuilderDataContainer.LevelBaseSettings[0].LevelTilesViews.ToDictionary(item => item.Key, item => item.Value);
+            var levelDictionary = _gridBuilderDataContainer.LevelBaseSettings[0].LevelTilesViews
+                .ToDictionary(item => item.Key, item => item.Value);
 
-            if (!onEditor)
-            {
+#if UNITY_EDITOR
+            var gridWidth = GridHeight;
+            var gridHeight = GridHeight;
+
+#else
+               var  gridHeight = _gridBuilderDataContainer.LevelBaseSettings[0].GridWidth;
+               var gridWidth = _gridBuilderDataContainer.LevelBaseSettings[0].GridHeight;
                 _tiles = new HexTile[gridWidth, gridHeight];
-            }
 
-       
+#endif
+
 
             for (var x = 0; x < gridWidth; x++)
             {
@@ -89,16 +96,16 @@ namespace GridSystem
                         tileTemp.gameObject.SetActive(true);
                         continue;
                     }
-                    
-                    
+
+
                     _tiles[x, y] = tileTemp;
-                        
+
                     if (levelDictionary.TryGetValue(new Vector2Int(x, y), out List<HexViewDto> viewData))
                     {
                         tileTemp.SetElementData(viewData);
                     }
-                    tileTemp.gameObject.SetActive(true);
 
+                    tileTemp.gameObject.SetActive(true);
                 }
             }
 
@@ -142,7 +149,7 @@ namespace GridSystem
             {
                 return null;
             }
-            
+
             return _tiles[coordinate.x, coordinate.y];
         }
 
@@ -154,7 +161,7 @@ namespace GridSystem
         public void SaveLevelDataOnEditor()
         {
             ConvertListToMatrix(); // for editor bug
-            
+
             var levelData = new List<LevelTilesView>();
             for (var i = 0; i < _tiles.GetLength(0); i++)
             {
@@ -170,18 +177,19 @@ namespace GridSystem
                     });
                 }
             }
+
             var mainCamera = Camera.main;
 
             _gridBuilderDataContainer.LevelBaseSettings.Add(new LevelBaseSettings()
             {
-                GridHeight = gridHeight,
-                GridWidth = gridWidth,
+                GridHeight = GridHeight,
+                GridWidth = GridWidth,
                 CameraSize = mainCamera.orthographicSize,
                 CameraPos = mainCamera.transform.position,
                 LevelTilesViews = levelData,
             });
-            
-            _gridBuilderDataContainer.SetDirty(); 
+
+            _gridBuilderDataContainer.SetDirty();
 
             AssetDatabase.SaveAssets();
         }
@@ -191,14 +199,14 @@ namespace GridSystem
         /// </summary>
         private void ConvertListToMatrix()
         {
-            _tiles = new HexTile[gridWidth, gridHeight];
+            _tiles = new HexTile[GridWidth, GridHeight];
 
-            for (int i = 0; i < tileList.Count; i++)
+            for (int i = 0; i < TileList.Count; i++)
             {
-                var x = i / gridHeight; 
-                var y = i % gridHeight; 
+                var x = i / GridHeight;
+                var y = i % GridHeight;
 
-                _tiles[x, y] = tileList[i];
+                _tiles[x, y] = TileList[i];
             }
         }
 #endif
