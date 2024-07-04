@@ -74,18 +74,26 @@ namespace FrogScripts.Tongue
                     path[j] = usedPoints[i - j].transform.position;
                 }
 
-                var grape = usedPoints[i].transform.GetComponentInChildren<Grape>();
-
-                if (grape != null)
+                if (_tongue.IsMovementSuccessfullyCompleted)
                 {
-                    grape.OnCollected(path.Length*.75f);
+                    var grape = usedPoints[i].transform.GetComponentInChildren<Grape>();
+
+                    if (grape != null)
+                    {
+                        grape.OnCollected(path.Length*.75f);
+                    }
                 }
+             
                 
                 
                 var tween = usedPoints[i].transform.DOPath(path, 0.25f * i);
                 var task = tween.OnComplete(() =>
-                { 
-                    EventBus<OnCollectItemEvent>.Publish(new OnCollectItemEvent());
+                {
+                    if (_tongue.IsMovementSuccessfullyCompleted)
+                    {
+                        EventBus<OnCollectItemEvent>.Publish(new OnCollectItemEvent());
+                    }
+                  
                 }).ToUniTask();
                 
                 tasks.Add(task);
