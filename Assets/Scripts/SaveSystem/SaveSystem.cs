@@ -7,7 +7,7 @@ namespace SaveSystem
     public static class SaveSystem
     {
         private static Dictionary<string, string> SavableDataContainers = new();
-        private static string Path => "GameSaveData";
+        private static string Path => "FunradoCaseStudy";
 
         public static void DataSave(string data, string id)
         {

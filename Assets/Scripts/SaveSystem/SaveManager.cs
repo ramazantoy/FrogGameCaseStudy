@@ -14,8 +14,8 @@ namespace SaveSystem
         }
 
         private void LoadData()
-        {
-            global::SaveSystem.SaveSystem.LoadFromFile();
+        { 
+            SaveSystem.LoadFromFile();
 
             foreach (var savableData in _savableDatas)
             {
