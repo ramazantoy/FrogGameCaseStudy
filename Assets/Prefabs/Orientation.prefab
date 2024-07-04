@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4853253412829543276}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.019, y: 0.000000029802, z: -0.0431}
+  m_LocalPosition: {x: 0, y: 0, z: -0.06}
   m_LocalScale: {x: 0.4078, y: 0.4078, z: 0.030921608}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152,4 +152,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _properties:
     _orientationMeshRenderer: {fileID: 2026896984928508605}
-    _materialDataContainer: {fileID: 11400000, guid: ea2721193710baf49bf3e3a0ebd091a1, type: 2}
+    _materialDataContainer: {fileID: 11400000, guid: dab718e7329ccf1479e662e56dff2ffb, type: 2}

@@ -47,6 +47,16 @@ namespace Tile
             }
         }
 
+        public HexView GetTopStackElement()
+        {
+            if (_hexViews.Count >= 1)
+            {
+                return _hexViews[^1];
+            }
+
+            return null;
+        }
+
         public override void ScaleDown(float time)
         {
             

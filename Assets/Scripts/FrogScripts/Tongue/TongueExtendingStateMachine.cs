@@ -1,14 +1,13 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Enums;
 
 namespace FrogScripts.Tongue
 {
     public  class TongueExtendingStateMachine : TongueStateMachine
     {
-        private readonly int _numOfMovementPoints = 50;
-      
-        public TongueExtendingStateMachine(FrogTongue tongue,LineRenderer lineRenderer) : base(tongue,lineRenderer)
+        public TongueExtendingStateMachine(FrogTongue tongue) : base(tongue)
         {
             
         }
@@ -32,6 +31,20 @@ namespace FrogScripts.Tongue
             var obj = _tongue.GetPoint();
             
             await obj.transform.DOMove(_tongue.TargetPoint, .25f);
+
+            var currentElement = _tongue.GetCurrentHexViewElement();
+            
+            
+            if (currentElement.ColorType != _tongue.TargetColorType)
+            {
+                _tongue.OnExtendingFail();
+                return;
+            } 
+            if (currentElement.HexViewElementType == HexViewElementType.Direction)
+            {
+                _tongue.OnMovementDirectionChanged(currentElement.GetDirection());
+            }
+            
             OnExit();
         }
 

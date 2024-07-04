@@ -1,3 +1,4 @@
+using Enums;
 using UnityEngine;
 
 namespace FrogScripts.Tongue
@@ -5,12 +6,10 @@ namespace FrogScripts.Tongue
     public abstract class TongueStateMachine 
     {
         protected readonly FrogTongue _tongue;
-        protected readonly LineRenderer _lineRenderer;
 
-        protected TongueStateMachine(FrogTongue tongue,LineRenderer lineRenderer)
+        protected TongueStateMachine(FrogTongue tongue)
         {
             _tongue = tongue;
-            _lineRenderer = lineRenderer;
         }
 
         public abstract void OnEnter();

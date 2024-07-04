@@ -2,13 +2,24 @@ using System;
 using System.Collections.Generic;
 using Enums;
 using Extensions;
+using HexViewScripts;
 using Tile;
 using UnityEngine;
 
 namespace FrogScripts.Tongue
 {
     public class FrogTongue : MonoBehaviour
-    { 
+    {
+
+        private Frog _myFrog;
+
+        public Frog Frog
+        {
+            set
+            {
+                _myFrog = value;
+            }
+        }
         private LineRenderer _lineRenderer;
 
         [SerializeField]
@@ -44,7 +55,9 @@ namespace FrogScripts.Tongue
 
         #region MovementValues
 
-        private ColorType _targetColorType;
+        public ColorType TargetColorType { private set; get; }
+        
+ 
         private Vector2Int _targetCoordinate;
         private Direction _movementDirection;
 
@@ -54,9 +67,9 @@ namespace FrogScripts.Tongue
 
         private void Init()
         {
-            _tongueIdleStateMachine = new TongueIdleStateMachine(this, _lineRenderer);
-            _tongueExtendingStateMachine = new TongueExtendingStateMachine(this, _lineRenderer);
-            _tongueRetractingStateMachine = new TongueRetractingStateMachine(this, _lineRenderer);
+            _tongueIdleStateMachine = new TongueIdleStateMachine(this);
+            _tongueExtendingStateMachine = new TongueExtendingStateMachine(this);
+            _tongueRetractingStateMachine = new TongueRetractingStateMachine(this);
             
         }
         
@@ -81,6 +94,7 @@ namespace FrogScripts.Tongue
                     _currentStateMachine.OnEnter();
                     break;
                 case TongueState.Retracting :
+                    _myFrog.OnRetracting();
                     _currentStateMachine = _tongueRetractingStateMachine;
                     _currentStateMachine.OnEnter();
                     break;
@@ -96,7 +110,7 @@ namespace FrogScripts.Tongue
 
         public void StartExtending(Vector2Int currentCoordinate, Direction direction,ColorType targetColorType)
         {
-            _targetColorType = targetColorType;
+            TargetColorType = targetColorType;
             _movementDirection = direction;
             _targetCoordinate = currentCoordinate.GetCoordinate(direction);
             
@@ -111,9 +125,13 @@ namespace FrogScripts.Tongue
             SetTongueState(TongueState.Extending);
         }
 
+        public HexViewElement GetCurrentHexViewElement()
+        {
+           return GetTargetTile().GetTopStackElement().HexViewElement;
+        }
+
         public void OnExtendingStep()
         {
-            
             _targetCoordinate = _targetCoordinate.GetCoordinate(_movementDirection);
             
             var targetTile = GetTargetTile();
@@ -134,6 +152,7 @@ namespace FrogScripts.Tongue
         {
            return GameFuncs.GetTile(_targetCoordinate);
         }
+        
 
         public GameObject GetPoint()
         {
@@ -158,11 +177,26 @@ namespace FrogScripts.Tongue
 
         public void OnRetractingDone()
         {
-         
-            gameObject.SetActive(false);
+
+
+            var point = _usedPoints[0];
+            _usedPoints.Clear();
+            _usedPoints.Add(point);
+            SetTongueState(TongueState.Idle);
+            
             
         }
 
+        public void OnExtendingFail()
+        {
+            Debug.LogError("On Extending Fail");
+            SetTongueState(TongueState.Retracting);
+        }
+
+        public void OnMovementDirectionChanged(Direction newDirection)
+        {
+            _movementDirection = newDirection;
+        }
 
 
 

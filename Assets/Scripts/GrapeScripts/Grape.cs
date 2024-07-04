@@ -15,6 +15,11 @@ namespace GrapeScripts
             
         }
 
+        public override Direction GetDirection()
+        {
+            return Direction.None;
+        }
+
         public override void OnAction()
         {
          

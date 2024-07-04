@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Enums;
 
 namespace FrogScripts.Tongue
 {
     public class TongueRetractingStateMachine : TongueStateMachine
     {
 
-        public TongueRetractingStateMachine(FrogTongue tongue,LineRenderer lineRenderer) : base(tongue,lineRenderer)
+        public TongueRetractingStateMachine(FrogTongue tongue) : base(tongue)
         {
         }
 
@@ -32,17 +33,16 @@ namespace FrogScripts.Tongue
         {
             var usedPoints = _tongue.GetUsedPoints;
 
-            for (int i = 2; i < usedPoints.Count; i++)
+            for (int i = usedPoints.Count - 1; i > 0; i--)
             {
                 var tasks = new List<UniTask>();
-
-                for (int j = i; j > 0; j--)
+                for (int j = usedPoints.Count - 1; j >= i; j--)
                 {
-                    var targetPos = usedPoints[j - 1].transform.position;
+                    var targetPos = usedPoints[i - 1].transform.position;
                     tasks.Add(usedPoints[j].transform.DOMove(targetPos, 0.25f).ToUniTask());
                 }
-                
                 await UniTask.WhenAll(tasks);
+                
                 await UniTask.Yield();
             }
             OnExit();

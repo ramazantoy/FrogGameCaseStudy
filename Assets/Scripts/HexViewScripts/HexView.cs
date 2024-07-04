@@ -15,8 +15,9 @@ namespace HexViewScripts
         [SerializeField] private HexViewElementType _hexViewElementType;
         [SerializeField] private ColorType _targetColorType;
 #endif
-     
-      
+
+
+        public HexViewElement HexViewElement => _hexViewElement;
 
         private HexViewElement _hexViewElement;
 
@@ -62,6 +63,7 @@ namespace HexViewScripts
 
             _hexViewElement.Coordinate = coordinate;
             _hexViewElement.ColorType = dto.HexViewColorType;
+            _hexViewElement.HexViewElementType = dto.HexViewElementType;
 
 
 

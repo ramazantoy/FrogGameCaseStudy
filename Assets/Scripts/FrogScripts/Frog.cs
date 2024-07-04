@@ -19,6 +19,14 @@ namespace FrogScripts
         private FrogTongue _frogTongue;
 
         private static readonly int In = Animator.StringToHash("IN");
+        private static readonly int Out = Animator.StringToHash("OUT");
+
+
+        private void Awake()
+        {
+            _frogTongue.Frog = this;
+        }
+
 
         /// <summary>
         /// Gets or sets the direction of the frog.
@@ -32,6 +40,12 @@ namespace FrogScripts
             
             transform.rotation=Quaternion.Euler(rotation);
         }
+
+        public override Direction GetDirection()
+        {
+            return Direction.None;
+        }
+
 
         private float GetZDirection(Direction direction)
         {
@@ -69,6 +83,13 @@ namespace FrogScripts
             }
         }
 
+
+        public void OnRetracting()
+        {
+            _properties.FrogAnimator.SetTrigger(Out);
+        }
+   
+    
         public void OnMovementDone()
         {
             
