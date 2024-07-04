@@ -9,7 +9,20 @@ using UnityEngine;
 namespace FrogScripts.Tongue
 {
     /// <summary>
-    /// This class effectively manages the frog's tongue behavior, including its states (idle, extending, retracting), movement, and interactions with hex tiles and views.
+    /// The FrogTongue class manages the behavior and state of the frog's tongue in the game.
+    /// It handles tongue extension and retraction, interacts with hex tiles and views, 
+    /// and manages the tongue's movement and state transitions.
+    /// 
+    /// Main Components:
+    /// - Private fields and properties for managing tongue points, state, and movement.
+    /// - Initialization and state transition methods for setting up and switching between different states.
+    /// - Methods for handling tongue extension and retraction, including movement, scaling, and interactions with hex elements.
+    /// - Helper methods for managing visited tiles and views, and for resetting and retrieving tongue points.
+    /// 
+    /// Usage:
+    /// - Use StartExtending() to initiate the tongue's extending process.
+    /// - The tongue's state is managed through the SetTongueState() method and the various state machine classes.
+    /// - The FixedUpdate() method updates the tongue's line renderer positions in each frame.
     /// </summary>
     public class FrogTongue : MonoBehaviour
     {
