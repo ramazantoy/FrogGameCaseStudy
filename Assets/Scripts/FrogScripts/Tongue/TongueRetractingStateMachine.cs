@@ -33,18 +33,34 @@ namespace FrogScripts.Tongue
         {
             var usedPoints = _tongue.GetUsedPoints;
 
-            for (int i = usedPoints.Count - 1; i > 0; i--)
+            for (var i = usedPoints.Count-1; i >=0; i--)
             {
-                var tasks = new List<UniTask>();
-                for (int j = usedPoints.Count - 1; j >= i; j--)
+                var hexView = _tongue.GetLastVisitedView();
+                if (hexView != null && hexView.HexViewElement.HexViewElementType != HexViewElementType.Direction)
                 {
-                    var targetPos = usedPoints[i - 1].transform.position;
-                    tasks.Add(usedPoints[j].transform.DOMove(targetPos, 0.25f).ToUniTask());
+                    hexView.HexViewElement.transform.parent = usedPoints[i].transform;
+                    hexView.HexViewElement.transform.DOKill();
+                    hexView.HexViewElement.transform.localScale = Vector3.one*4f;
                 }
-                await UniTask.WhenAll(tasks);
-                
-                await UniTask.Yield();
             }
+            
+            
+            //i-1 i-2 i-3 i==0
+            var tasks = new List<UniTask>();
+            
+            for (var i = 1; i < usedPoints.Count; i++)
+            {
+                var path = new Vector3[i + 1];
+                for (var j = 0; j <= i; j++)
+                {
+                    path[j] = usedPoints[i - j].transform.position;
+                }
+
+                tasks.Add(usedPoints[i].transform.DOPath(path, 0.25f * i).ToUniTask());
+            }
+
+            await UniTask.WhenAll(tasks);
+
             OnExit();
         }
         

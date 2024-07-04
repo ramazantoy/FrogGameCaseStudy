@@ -64,7 +64,7 @@ namespace FrogScripts
         /// <summary>
         /// Executes the action associated with the frog.
         /// </summary>
-        public override void OnAction()
+        public override void ScaleUpDown()
         {
             // Action logic for the frog
         }

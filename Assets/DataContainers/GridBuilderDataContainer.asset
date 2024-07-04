@@ -37,23 +37,41 @@ MonoBehaviour:
         HexViewElementType: 2
         HexViewColorType: 0
     - Key: {x: 1, y: 0}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 0
+        HexViewColorType: 3
     - Key: {x: 1, y: 1}
       Value:
       - Direction: 0
         HexViewElementType: 1
         HexViewColorType: 0
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 3
     - Key: {x: 1, y: 2}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 3
     - Key: {x: 2, y: 0}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 0
+        HexViewColorType: 1
     - Key: {x: 2, y: 1}
       Value:
       - Direction: 0
         HexViewElementType: 1
         HexViewColorType: 0
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 1
     - Key: {x: 2, y: 2}
-      Value: []
+      Value:
+      - Direction: 0
+        HexViewElementType: 1
+        HexViewColorType: 1
   - GridWidth: 5
     GridHeight: 5
     CameraPos: {x: 1.5, y: -7, z: -10}

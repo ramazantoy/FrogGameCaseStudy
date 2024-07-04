@@ -32,19 +32,26 @@ namespace FrogScripts.Tongue
             
             await obj.transform.DOMove(_tongue.TargetPoint, .25f);
 
-            var currentElement = _tongue.GetCurrentHexViewElement();
+            var currentElement = _tongue.GetCurrentHexView().HexViewElement;
             
             
             if (currentElement.ColorType != _tongue.TargetColorType)
             {
                 _tongue.OnExtendingFail();
                 return;
-            } 
+            }
+
+            var hexView = _tongue.GetCurrentHexView();
+            hexView.HexViewElement.ScaleUpDown();
+            
+            _tongue.AddViewVisited(hexView);
+            
+            
             if (currentElement.HexViewElementType == HexViewElementType.Direction)
             {
                 _tongue.OnMovementDirectionChanged(currentElement.GetDirection());
             }
-            
+          
             OnExit();
         }
 

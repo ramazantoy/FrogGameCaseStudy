@@ -167,16 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridBuilderDataContainer: {fileID: 11400000, guid: 9b96de8f06f5cdb45b3cb3c2f21eb6ad, type: 2}
-  tileList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  tileList: []
   gridWidth: 3
   gridHeight: 3
 --- !u!1 &1624051178

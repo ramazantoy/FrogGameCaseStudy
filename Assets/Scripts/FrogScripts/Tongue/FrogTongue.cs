@@ -28,9 +28,27 @@ namespace FrogScripts.Tongue
         private List<GameObject> _availablePoints = new List<GameObject>();
         [SerializeField]
         private List<GameObject> _usedPoints;
-        
-        
-        
+
+        private List<HexView> _visitedViews = new List<HexView>();
+
+        public void AddViewVisited(HexView hexView)
+        {
+            if(_visitedViews.Contains(hexView)) return;
+            _visitedViews.Add(hexView);
+        }
+
+        public HexView GetLastVisitedView()
+        {
+            if (_visitedViews.Count <= 0) return null;
+            
+            var view = _visitedViews[^1];
+            
+            _visitedViews.RemoveAt(_visitedViews.Count-1);
+            return view;
+        }
+
+
+
         public Vector3 TargetPoint { get; set; }
 
         private void FixedUpdate()
@@ -56,11 +74,11 @@ namespace FrogScripts.Tongue
         #region MovementValues
 
         public ColorType TargetColorType { private set; get; }
-        
- 
         private Vector2Int _targetCoordinate;
         private Direction _movementDirection;
-
+        
+        public bool IsMovementSuccessfullyCompleted { private set; get; }
+        
         #endregion
         
         
@@ -125,19 +143,23 @@ namespace FrogScripts.Tongue
             SetTongueState(TongueState.Extending);
         }
 
-        public HexViewElement GetCurrentHexViewElement()
+        public HexView GetCurrentHexView()
         {
-           return GetTargetTile().GetTopStackElement().HexViewElement;
+            var tile = GetTargetTile();
+
+            return tile == null ? null : tile.GetTopStackElement();
         }
 
         public void OnExtendingStep()
         {
+            
             _targetCoordinate = _targetCoordinate.GetCoordinate(_movementDirection);
             
             var targetTile = GetTargetTile();
             
             if (targetTile == null)
             {
+                IsMovementSuccessfullyCompleted = true;
                 SetTongueState(TongueState.Retracting);
                 return;
             }
@@ -177,19 +199,27 @@ namespace FrogScripts.Tongue
 
         public void OnRetractingDone()
         {
+            ResetPoints();
+            SetTongueState(TongueState.Idle);
+        }
 
-
+        private void ResetPoints()
+        {
             var point = _usedPoints[0];
+            _usedPoints.RemoveAt(0);
+            
+            foreach (var usedPoint in _usedPoints)
+            {
+                _availablePoints.Add(usedPoint);
+            }
             _usedPoints.Clear();
             _usedPoints.Add(point);
-            SetTongueState(TongueState.Idle);
-            
-            
         }
 
         public void OnExtendingFail()
         {
             Debug.LogError("On Extending Fail");
+            IsMovementSuccessfullyCompleted = false;
             SetTongueState(TongueState.Retracting);
         }
 

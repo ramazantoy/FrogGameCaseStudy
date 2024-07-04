@@ -51,7 +51,7 @@ namespace Tile
         {
             if (_hexViews.Count >= 1)
             {
-                return _hexViews[^1];
+                return _hexViews[0];
             }
 
             return null;

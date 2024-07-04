@@ -1,10 +1,9 @@
 using Enums;
-using Interfaces;
 using UnityEngine;
 
 namespace HexViewScripts
 {
-    public abstract class HexViewElement : MonoBehaviour,IHexViewElement
+    public abstract class HexViewElement : MonoBehaviour
     {
 
         public HexViewElementType HexViewElementType { get; set; }
@@ -14,7 +13,7 @@ namespace HexViewScripts
 
         public abstract Direction GetDirection();
         public HexView MyHexView { get; set; }
-        public abstract void OnAction();
+        public abstract void ScaleUpDown();
 
         public abstract void SetColor(ColorType colorType);
     }

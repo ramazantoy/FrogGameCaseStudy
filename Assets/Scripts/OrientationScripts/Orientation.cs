@@ -1,11 +1,10 @@
 using Enums;
 using HexViewScripts;
-using Interfaces;
 using UnityEngine;
 
 namespace OrientationScripts
 {
-    public class Orientation : HexViewElement,IHexViewElement
+    public class Orientation : HexViewElement
     {
         [SerializeField]
         private OrientationData _properties;
@@ -37,7 +36,7 @@ namespace OrientationScripts
             };
         }
 
-        public override void OnAction()
+        public override void ScaleUpDown()
         {
       
         }

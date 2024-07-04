@@ -1,11 +1,11 @@
+using DG.Tweening;
 using Enums;
 using HexViewScripts;
-using Interfaces;
 using UnityEngine;
 
 namespace GrapeScripts
 {
-    public class Grape : HexViewElement,IHexViewElement
+    public class Grape : HexViewElement
     {
         [SerializeField]
         private GrapeData _properties;
@@ -20,9 +20,13 @@ namespace GrapeScripts
             return Direction.None;
         }
 
-        public override void OnAction()
+        public override void ScaleUpDown()
         {
-         
+            var scale = transform.lossyScale;
+            transform.DOScale(scale * 1.25f, .15f).OnComplete((() =>
+            {
+                transform.DOScale(Vector3.one, .15f);
+            }));
         }
 
         public override void SetColor(ColorType colorType)
