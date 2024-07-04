@@ -167,9 +167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridBuilderDataContainer: {fileID: 11400000, guid: 9b96de8f06f5cdb45b3cb3c2f21eb6ad, type: 2}
-  tileList: []
-  gridWidth: 5
-  gridHeight: 5
+  TileList: []
+  GridWidth: 5
+  GridHeight: 5
 --- !u!1 &1624051178
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,9 +62,9 @@ namespace GridSystem
 #else
                var  gridHeight = _gridBuilderDataContainer.LevelBaseSettings[0].GridWidth;
                var gridWidth = _gridBuilderDataContainer.LevelBaseSettings[0].GridHeight;
-                _tiles = new HexTile[gridWidth, gridHeight];
-
+            
 #endif
+            _tiles = new HexTile[gridWidth, gridHeight];
 
 
             for (var x = 0; x < gridWidth; x++)
