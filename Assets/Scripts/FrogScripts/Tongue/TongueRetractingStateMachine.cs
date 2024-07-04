@@ -9,14 +9,13 @@ namespace FrogScripts.Tongue
 {
     public class TongueRetractingStateMachine : TongueStateMachine
     {
-
         public TongueRetractingStateMachine(FrogTongue tongue) : base(tongue)
         {
         }
 
         public override void OnEnter()
         {
-            RetractTongue().Forget();  
+            RetractTongue().Forget();
         }
 
 
@@ -29,30 +28,38 @@ namespace FrogScripts.Tongue
             _tongue.OnRetractingDone();
         }
 
+        /// <summary>
+        /// RetractTongue(): An asynchronous method that handles the tongue retracting process.
+        /// - Retrieves the list of used points from _tongue.
+        /// - If the movement was successful:
+        ///   - Iterates through used points in reverse order.
+        ///   - If the hex view is valid and not a direction type, attaches the hex view element to the corresponding point, resets its scale, and stops any ongoing tweens.
+        /// - Creates a list of tasks for the points to move along their respective paths.
+        /// - Awaits the completion of all movement tasks.
+        /// - Calls OnExit() to proceed to the next step or state.
+        /// </summary>
         private async UniTaskVoid RetractTongue()
         {
             var usedPoints = _tongue.GetUsedPoints;
 
             if (_tongue.IsMovementSuccessfullyCompleted)
             {
-                for (var i = usedPoints.Count-1; i >=0; i--)
+                for (var i = usedPoints.Count - 1; i >= 0; i--)
                 {
                     var hexView = _tongue.GetLastVisitedView();
-                    
-                    if (hexView == null || hexView.HexViewElement.HexViewElementType == HexViewElementType.Direction) continue;
-                    
+
+                    if (hexView == null || hexView.HexViewElement.HexViewElementType == HexViewElementType.Direction)
+                        continue;
+
                     hexView.HexViewElement.transform.parent = usedPoints[i].transform;
                     hexView.HexViewElement.transform.DOKill();
-                    hexView.HexViewElement.transform.localScale = Vector3.one*4f;
+                    hexView.HexViewElement.transform.localScale = Vector3.one * 4f;
                 }
             }
-
-           
-            
             
             //i-1 i-2 i-3 i==0
             var tasks = new List<UniTask>();
-            
+
             for (var i = 1; i < usedPoints.Count; i++)
             {
                 var path = new Vector3[i + 1];
@@ -68,8 +75,5 @@ namespace FrogScripts.Tongue
 
             OnExit();
         }
-        
-    
-    
     }
 }
