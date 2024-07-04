@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Enums;
 using HexViewScripts;
@@ -27,6 +28,17 @@ namespace GrapeScripts
             {
                 transform.DOScale(Vector3.one, .15f);
             }));
+        }
+
+        public override void OnCollected(float time)
+        {
+            transform.DOScale(Vector3.zero, time);
+
+        }
+
+        private void OnDestroy()
+        {
+            transform.DOKill();
         }
 
         public override void SetColor(ColorType colorType)

@@ -1,5 +1,7 @@
 using System;
 using Enums;
+using Events.EventBusScripts;
+using Events.GameEvents;
 using Extensions;
 using FrogScripts.Tongue;
 using HexViewScripts;
@@ -74,13 +76,18 @@ namespace FrogScripts
             _properties.SetFrogColor(colorType);
         }
 
+        public override void OnCollected(float time)
+        {
+            
+        }
+
         private void OnMouseDown()
         {
-            if (_frogTongue.TongueState == TongueState.Idle)
-            {
-                _properties.FrogAnimator.SetTrigger(In);
-                _frogTongue.StartExtending(Coordinate,FrogDirection,ColorType);
-            }
+            if (_frogTongue.TongueState != TongueState.Idle) return;
+            
+            EventBus<OnClickFrogEvent>.Publish(new OnClickFrogEvent());
+            _properties.FrogAnimator.SetTrigger(In);
+            _frogTongue.StartExtending(Coordinate,FrogDirection,ColorType);
         }
 
 

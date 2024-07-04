@@ -1,5 +1,6 @@
 using SaveSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Audio
 {
@@ -8,7 +9,8 @@ namespace Audio
     {
         public GameSaveDataContainer GameSaveDataContainer;
         public AudioClip MainSound;
-        public AudioClip CollectItemSound;
-        public AudioClip OnPanelChangeSound;
+        public AudioClip CollectItemSound; 
+        public AudioClip OnClickFrogSound;
+        public AudioClip OnNewHexSound;
     }
 }

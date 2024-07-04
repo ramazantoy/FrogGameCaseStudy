@@ -16,5 +16,7 @@ namespace HexViewScripts
         public abstract void ScaleUpDown();
 
         public abstract void SetColor(ColorType colorType);
+
+        public abstract void OnCollected(float time);
     }
 }

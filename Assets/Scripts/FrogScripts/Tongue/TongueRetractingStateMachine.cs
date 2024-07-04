@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Enums;
+using Events.EventBusScripts;
+using Events.GameEvents;
+using GrapeScripts;
+
 
 namespace FrogScripts.Tongue
 {
     public class TongueRetractingStateMachine : TongueStateMachine
     {
+       
         public TongueRetractingStateMachine(FrogTongue tongue) : base(tongue)
         {
+            
         }
-
+        
         public override void OnEnter()
         {
             RetractTongue().Forget();
@@ -68,7 +74,21 @@ namespace FrogScripts.Tongue
                     path[j] = usedPoints[i - j].transform.position;
                 }
 
-                tasks.Add(usedPoints[i].transform.DOPath(path, 0.25f * i).ToUniTask());
+                var grape = usedPoints[i].transform.GetComponentInChildren<Grape>();
+
+                if (grape != null)
+                {
+                    grape.OnCollected(path.Length*.75f);
+                }
+                
+                
+                var tween = usedPoints[i].transform.DOPath(path, 0.25f * i);
+                var task = tween.OnComplete(() =>
+                { 
+                    EventBus<OnCollectItemEvent>.Publish(new OnCollectItemEvent());
+                }).ToUniTask();
+                
+                tasks.Add(task);
             }
 
             await UniTask.WhenAll(tasks);

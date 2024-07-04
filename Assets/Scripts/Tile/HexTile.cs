@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Dtos;
 using Enums;
+using Events.EventBusScripts;
+using Events.GameEvents;
 using Extensions;
 using HexViewScripts;
 using UnityEngine;
@@ -92,6 +94,7 @@ namespace Tile
     /// </summary>
     private void RePosHexViews()
     {
+        EventBus<OnNewHexEvent>.Publish(new OnNewHexEvent());
         if (_hexViews.Count <= 0)
         {
             _properties.EmpyViewObject.SetActive(true);

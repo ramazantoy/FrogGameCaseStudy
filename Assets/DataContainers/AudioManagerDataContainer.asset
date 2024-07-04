@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AudioManagerDataContainer
   m_EditorClassIdentifier: 
   GameSaveDataContainer: {fileID: 11400000, guid: d1a9b4d598415ff4484109577cafe3dd, type: 2}
-  MainSound: {fileID: 0}
-  CollectItemSound: {fileID: 0}
-  OnPanelChangeSound: {fileID: 0}
+  MainSound: {fileID: 8300000, guid: 032ab1f2b516a9443885aa717f20ca8b, type: 3}
+  CollectItemSound: {fileID: 8300000, guid: 255bcc96b3e470f4ebf5d87de5897c68, type: 3}
+  OnClickFrogSound: {fileID: 8300000, guid: ad354a1befd3ff849add69c88e6d5830, type: 3}
+  OnNewHexSound: {fileID: 8300000, guid: 62d5de15ee9263d41a2aebe2204e9a64, type: 3}

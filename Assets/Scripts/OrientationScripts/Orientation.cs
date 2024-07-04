@@ -45,5 +45,10 @@ namespace OrientationScripts
         {
             _properties.SetOrientationColor(colorType);
         }
+
+        public override void OnCollected(float time)
+        {
+            
+        }
     }
 }
