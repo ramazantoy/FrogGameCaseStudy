@@ -1015,11 +1015,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88996b151ed19e4ead20c52d8746957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasAnimator: {fileID: 2854349435719920524}
-  LevelText: {fileID: 0}
-  MovementText: {fileID: 0}
-  GameSaveDataContainer: {fileID: 0}
-  ToggleSprite: []
+  _properties:
+    CanvasAnimator: {fileID: 2854349435719920524}
+    LevelText: {fileID: 7064854522059459419}
+    MovementText: {fileID: 8911917082668059019}
+    GameSaveDataContainer: {fileID: 11400000, guid: d1a9b4d598415ff4484109577cafe3dd, type: 2}
 --- !u!1 &2854349435772476021
 GameObject:
   m_ObjectHideFlags: 0
