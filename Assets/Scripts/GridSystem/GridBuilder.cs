@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dtos;
+using Events.EventBusScripts;
+using Events.GameEvents;
 using Tile;
 using UnityEditor;
 using UnityEngine;
@@ -17,12 +19,6 @@ namespace GridSystem
         private HexTile[,] _tiles;
 
 
-#if UNITY_EDITOR
-
-        public List<HexTile> TileList;
-        public int GridWidth;
-        public int GridHeight;
-#endif
 
         private void Start()
         {
@@ -32,11 +28,13 @@ namespace GridSystem
         private void OnEnable()
         {
             GameFuncs.GetTile += GetTile;
+            GameFuncs.IsLevelDone += IsLevelDone;
         }
 
         private void OnDisable()
         {
             GameFuncs.GetTile -= GetTile;
+            GameFuncs.IsLevelDone -= IsLevelDone;
         }
 
         /// <summary>
@@ -45,25 +43,20 @@ namespace GridSystem
         /// <param name="onEditor">Specifies whether the grid is being built in the editor (true by default).</param>
         public void BuildGrid(bool onEditor = true)
         {
-            RemoveTiles(onEditor);
+           // RemoveTiles(onEditor);
 
 
             var xOffset = _gridBuilderDataContainer.XOffset;
             var yOffset = _gridBuilderDataContainer.YOffset;
             var tilePref = _gridBuilderDataContainer.TilePref;
+            var levelIndex = _gridBuilderDataContainer.GetLevelIndex();
 
-            var levelDictionary = _gridBuilderDataContainer.LevelBaseSettings[0].LevelTilesViews
+            var levelDictionary = _gridBuilderDataContainer.LevelBaseSettings[levelIndex].LevelTilesViews
                 .ToDictionary(item => item.Key, item => item.Value);
 
-#if UNITY_EDITOR
-            var gridWidth = GridHeight;
-            var gridHeight = GridHeight;
+            var gridWidth = _gridBuilderDataContainer.LevelBaseSettings[levelIndex].GridWidth;
+            var gridHeight = _gridBuilderDataContainer.LevelBaseSettings[levelIndex].GridHeight;
 
-#else
-               var  gridHeight = _gridBuilderDataContainer.LevelBaseSettings[0].GridWidth;
-               var gridWidth = _gridBuilderDataContainer.LevelBaseSettings[0].GridHeight;
-            
-#endif
             _tiles = new HexTile[gridWidth, gridHeight];
 
 
@@ -75,14 +68,14 @@ namespace GridSystem
                 for (var y = 0; y < gridHeight; y++)
                 {
                     var yPos = yOffset * y - (x % 2 == 1 ? 0 : yOffset / 2);
-#if UNITY_EDITOR
-
-                    var tileTemp = onEditor
-                        ? PrefabUtility.InstantiatePrefab(tilePref, transform) as HexTile
-                        : Instantiate(tilePref, transform);
-#else
+// #if UNITY_EDITOR
+//
+//                     var tileTemp = onEditor
+//                         ? PrefabUtility.InstantiatePrefab(tilePref, transform) as HexTile
+//                         : Instantiate(tilePref, transform);
+// #else
                    var tileTemp = Instantiate(tilePref, transform);
-#endif
+// #endif
 
 
                     if (tileTemp == null) continue;
@@ -112,8 +105,15 @@ namespace GridSystem
             if (onEditor) return;
 
             var camera = Camera.main;
-            camera.transform.position = _gridBuilderDataContainer.LevelBaseSettings[0].CameraPos;
-            camera.orthographicSize = _gridBuilderDataContainer.LevelBaseSettings[0].CameraSize;
+            camera.transform.position = _gridBuilderDataContainer.LevelBaseSettings[levelIndex].CameraPos;
+            camera.orthographicSize = _gridBuilderDataContainer.LevelBaseSettings[levelIndex].CameraSize;
+            
+            
+            
+            EventBus<OnSetMoveAmountEvent>.Publish(new OnSetMoveAmountEvent()
+            {
+                MoveAmount = _gridBuilderDataContainer.LevelBaseSettings[levelIndex].MoveAmount
+            });
         }
 
         /// <summary>
@@ -153,62 +153,78 @@ namespace GridSystem
             return _tiles[coordinate.x, coordinate.y];
         }
 
-#if UNITY_EDITOR
-        /// <summary>
-        /// Save to level data on SO.
-        /// </summary>
-        [Obsolete("Obsolete")]
-        public void SaveLevelDataOnEditor()
+        private bool IsLevelDone()
         {
-            ConvertListToMatrix(); // for editor bug
-
-            var levelData = new List<LevelTilesView>();
-            for (var i = 0; i < _tiles.GetLength(0); i++)
+            for (var i = 0; i <_tiles.GetLength(0); i++)
             {
-                for (var j = 0; j < _tiles.GetLength(1); j++)
+                for (var j = 0; j <_tiles.GetLength(1); j++)
                 {
-                    var key = new Vector2Int(i, j);
-                    var value = _tiles[i, j].GetElementsData();
-
-                    levelData.Add(new LevelTilesView
+                    if (_tiles[i, j].HaveStackElement)
                     {
-                        Key = key,
-                        Value = value
-                    });
+                        return false;
+                    }
                 }
             }
-
-            var mainCamera = Camera.main;
-
-            _gridBuilderDataContainer.LevelBaseSettings.Add(new LevelBaseSettings()
-            {
-                GridHeight = GridHeight,
-                GridWidth = GridWidth,
-                CameraSize = mainCamera.orthographicSize,
-                CameraPos = mainCamera.transform.position,
-                LevelTilesViews = levelData,
-            });
-
-            _gridBuilderDataContainer.SetDirty();
-
-            AssetDatabase.SaveAssets();
+            
+            return true;
         }
 
-        /// <summary>
-        /// Converts a list of HexTile objects into a 2D matrix based on the grid's width and height.
-        /// </summary>
-        private void ConvertListToMatrix()
-        {
-            _tiles = new HexTile[GridWidth, GridHeight];
-
-            for (int i = 0; i < TileList.Count; i++)
-            {
-                var x = i / GridHeight;
-                var y = i % GridHeight;
-
-                _tiles[x, y] = TileList[i];
-            }
-        }
-#endif
+// #if UNITY_EDITOR
+//         /// <summary>
+//         /// Save to level data on SO.
+//         /// </summary>
+//         [Obsolete("Obsolete")]
+//         public void SaveLevelDataOnEditor()
+//         {
+//             ConvertListToMatrix(); // for editor bug
+//
+//             var levelData = new List<LevelTilesView>();
+//             for (var i = 0; i < _tiles.GetLength(0); i++)
+//             {
+//                 for (var j = 0; j < _tiles.GetLength(1); j++)
+//                 {
+//                     var key = new Vector2Int(i, j);
+//                     var value = _tiles[i, j].GetElementsData();
+//
+//                     levelData.Add(new LevelTilesView
+//                     {
+//                         Key = key,
+//                         Value = value
+//                     });
+//                 }
+//             }
+//
+//             var mainCamera = Camera.main;
+//
+//             _gridBuilderDataContainer.LevelBaseSettings.Add(new LevelBaseSettings()
+//             {
+//                 GridHeight = GridHeight,
+//                 GridWidth = GridWidth,
+//                 CameraSize = mainCamera.orthographicSize,
+//                 CameraPos = mainCamera.transform.position,
+//                 LevelTilesViews = levelData,
+//             });
+//
+//             _gridBuilderDataContainer.SetDirty();
+//
+//             AssetDatabase.SaveAssets();
+//         }
+//
+//         /// <summary>
+//         /// Converts a list of HexTile objects into a 2D matrix based on the grid's width and height.
+//         /// </summary>
+//         private void ConvertListToMatrix()
+//         {
+//             _tiles = new HexTile[GridWidth, GridHeight];
+//
+//             for (int i = 0; i < TileList.Count; i++)
+//             {
+//                 var x = i / GridHeight;
+//                 var y = i % GridHeight;
+//
+//                 _tiles[x, y] = TileList[i];
+//             }
+//         }
+// #endif
     }
 }

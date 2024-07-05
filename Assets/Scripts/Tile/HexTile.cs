@@ -86,6 +86,7 @@ namespace Tile
             _hexViews.RemoveAt(0);
         }
 
+        
         RePosHexViews();
     }
 
@@ -116,6 +117,7 @@ namespace Tile
         // Placeholder method for scaling down the tile, currently not implemented.
     }
 
+    public bool HaveStackElement => _hexViews.Count > 0 ? true : false;
 #if UNITY_EDITOR
     /// <summary>
     /// Retrieves the data of all hex view elements attached to the tile.

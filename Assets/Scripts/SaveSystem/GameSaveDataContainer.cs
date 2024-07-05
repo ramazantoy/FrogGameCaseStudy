@@ -22,6 +22,7 @@ namespace SaveSystem
     [System.Serializable]
     public class GameSaveData
     {
+        private int _levelIndex=1;
         private bool _isMusicOn;
         private bool _isSoundEffectsOn;
 
@@ -41,6 +42,12 @@ namespace SaveSystem
         {
             get => _isSoundEffectsOn;
             set => _isSoundEffectsOn= value;
+        }
+
+        public int LevelIndex
+        {
+            get => _levelIndex;
+            set => _levelIndex = value;
         }
 
         

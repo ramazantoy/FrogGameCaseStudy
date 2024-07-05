@@ -269,6 +269,7 @@ namespace FrogScripts.Tongue
         /// </summary>
         public void OnRetractingDone()
         {
+           
             if (IsMovementSuccessfullyCompleted)
             {
                 BlowYourSelf();
@@ -276,6 +277,7 @@ namespace FrogScripts.Tongue
 
             ResetPoints();
             SetTongueState(TongueState.Idle);
+            
         }
 
         /// <summary>
@@ -288,7 +290,7 @@ namespace FrogScripts.Tongue
                 hexTile.BlowTopElement().Forget();
             }
 
-            _myFrog.OnMovementDone();
+            _myFrog.OnMovementDone().Forget();
         }
 
         /// <summary>
@@ -315,6 +317,7 @@ namespace FrogScripts.Tongue
         {
             IsMovementSuccessfullyCompleted = false;
             EventBus<OnWrongEvent>.Publish(new OnWrongEvent());
+            EventBus<OnFrogMovementDoneEvent>.Publish(new OnFrogMovementDoneEvent());
             SetTongueState(TongueState.Retracting);
         }
 

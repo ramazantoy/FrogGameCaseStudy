@@ -1,10 +1,12 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Enums;
 using Events.EventBusScripts;
 using Events.GameEvents;
 using Extensions;
 using FrogScripts.Tongue;
 using HexViewScripts;
+using Managers;
 using UnityEngine;
 
 namespace FrogScripts
@@ -83,7 +85,7 @@ namespace FrogScripts
 
         private void OnMouseDown()
         {
-            if (_frogTongue.TongueState != TongueState.Idle) return;
+            if (_frogTongue.TongueState != TongueState.Idle || GameManager.GameState!=GameState.Playing) return;
             
             EventBus<OnClickFrogEvent>.Publish(new OnClickFrogEvent());
             _properties.FrogAnimator.SetTrigger(In);
@@ -97,13 +99,17 @@ namespace FrogScripts
         }
    
     
-        public void OnMovementDone()
+        public async UniTaskVoid OnMovementDone()
         {
             var myHex = GameFuncs.GetTile(Coordinate);
             if (myHex != null)
             {
                 myHex.BlowTopElement().Forget();
             }
+
+            await UniTask.Delay(TimeSpan.FromSeconds(.5f));
+            
+            EventBus<OnFrogMovementDoneEvent>.Publish(new OnFrogMovementDoneEvent());
         }
     }
 }

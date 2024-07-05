@@ -12,4 +12,6 @@ public class GameFuncs
     /// Retrieves a HexTile at specified coordinates from the game grid.
     /// </summary>
     public static Func<Vector2Int, HexTile> GetTile;
+
+    public static Func<bool> IsLevelDone;
 }

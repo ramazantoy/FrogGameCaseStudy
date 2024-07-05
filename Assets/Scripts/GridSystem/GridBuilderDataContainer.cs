@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Dtos;
+using SaveSystem;
 using Tile;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,10 +17,25 @@ namespace GridSystem
     [CreateAssetMenu(fileName = "GridBuilderDataContainer", menuName = "ScriptableObjects/GridBuilderDataContainer")]
     public class GridBuilderDataContainer : ScriptableObject
     {
+        [SerializeField]
+        private GameSaveDataContainer _gameSaveDataContainer;
         public float XOffset;
         public float YOffset;
         public HexTile TilePref;
         public List<LevelBaseSettings> LevelBaseSettings;
+
+
+        public int GetLevelIndex()
+        {
+            int currentLevel = _gameSaveDataContainer.Data.LevelIndex - 1;
+            if (currentLevel >= LevelBaseSettings.Count)
+            {
+                var offset = (currentLevel) % (LevelBaseSettings.Count);
+
+                currentLevel = offset;
+            }
+            return currentLevel;
+        }
     }
 
     /// <summary>
@@ -32,6 +48,7 @@ namespace GridSystem
     [System.Serializable]
     public struct LevelBaseSettings
     {
+        public int MoveAmount;
         public int GridWidth;
         public int GridHeight;
         public Vector3 CameraPos;

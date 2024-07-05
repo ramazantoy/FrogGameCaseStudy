@@ -41,6 +41,11 @@ namespace Audio
 
         private void OnDisable()
         {
+            EventBus<OnClickFrogEvent>.Unsubscribe(_onClickEvent);
+            EventBus<OnCollectItemEvent>.Unsubscribe(_onCollectItemEvent);
+            EventBus<OnNewHexEvent>.Unsubscribe(_onNewHexEvent);
+            EventBus<OnWrongEvent>.Unsubscribe(_onWrongEvent);
+            EventBus<OnTriggerEvent>.Unsubscribe(_onTriggerEvent);
         }
 
         private void SetMusicSettings()
