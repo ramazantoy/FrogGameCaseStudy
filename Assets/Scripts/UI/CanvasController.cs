@@ -127,6 +127,7 @@ namespace UI
 
         public void LoadGame()
         {
+            EventBus<OnGameStateChangedEvent>.Publish(new OnGameStateChangedEvent());
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

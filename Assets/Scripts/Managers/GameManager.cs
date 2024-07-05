@@ -86,6 +86,7 @@ namespace Managers
         {
             AddFrog(args.Frog);
             _currentMoveAmount--;
+            if (_currentMoveAmount <= 0) _currentMoveAmount = 0;
             PublishMoveAmount();
         }
 
