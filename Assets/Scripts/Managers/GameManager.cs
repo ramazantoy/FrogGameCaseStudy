@@ -91,6 +91,8 @@ namespace Managers
 
         private void CheckLevelStatus()
         {
+            if(GameState!=GameState.Playing) return;
+            
             if (GameFuncs.IsLevelDone())
             {
                 _gameSaveDataContainer.Data.LevelIndex++;

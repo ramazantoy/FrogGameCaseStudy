@@ -274,6 +274,14 @@ namespace FrogScripts.Tongue
             {
                 BlowYourSelf();
             }
+            else
+            {
+                EventBus<OnFrogMovementDoneEvent>.Publish(new OnFrogMovementDoneEvent()
+                {
+
+                    Frog = _myFrog
+                });
+            }
 
         
             
@@ -281,11 +289,9 @@ namespace FrogScripts.Tongue
             
             SetTongueState(TongueState.Idle);
             
-            EventBus<OnFrogMovementDoneEvent>.Publish(new OnFrogMovementDoneEvent()
-            {
-
-                Frog = _myFrog
-            });
+            
+            
+         
 
         }
 
