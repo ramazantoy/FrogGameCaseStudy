@@ -87,7 +87,10 @@ namespace FrogScripts
         {
             if (_frogTongue.TongueState != TongueState.Idle || GameManager.GameState!=GameState.Playing) return;
             
-            EventBus<OnClickFrogEvent>.Publish(new OnClickFrogEvent());
+            EventBus<OnClickFrogEvent>.Publish(new OnClickFrogEvent()
+            {
+                Frog = this
+            });
             _properties.FrogAnimator.SetTrigger(In);
             _frogTongue.StartExtending(Coordinate,FrogDirection,ColorType);
         }
@@ -109,7 +112,10 @@ namespace FrogScripts
 
             await UniTask.Delay(TimeSpan.FromSeconds(.5f));
             
-            EventBus<OnFrogMovementDoneEvent>.Publish(new OnFrogMovementDoneEvent());
+            EventBus<OnFrogMovementDoneEvent>.Publish(new OnFrogMovementDoneEvent()
+            {
+                Frog = this
+            });
         }
     }
 }

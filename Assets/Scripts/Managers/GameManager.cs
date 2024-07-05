@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Enums;
 using Events.EventBusScripts;
 using Events.GameEvents;
+using FrogScripts;
 using SaveSystem;
 using UnityEngine;
 
@@ -18,6 +21,29 @@ namespace Managers
         private EventBinding<OnFrogMovementDoneEvent> _onFrogMovementDoneEvent;
 
         private EventBinding<OnClickFrogEvent> _onClickFrogEvent;
+
+
+        private  List<Frog> _activeFrogs = new List<Frog>();
+
+        private void AddFrog(Frog frog)
+        {
+            if(_activeFrogs.Contains(frog)) return;
+            
+            _activeFrogs.Add(frog);
+        }
+
+        private void RemoveFrog(Frog frog)
+        {
+            if (_activeFrogs.Contains(frog))
+            {
+                _activeFrogs.Remove(frog);
+            }
+
+            if (_activeFrogs.Count <= 0)
+            {
+                CheckLevelStatus();
+            }
+        }
 
         public static GameState GameState { get; private set; }
 
@@ -56,13 +82,14 @@ namespace Managers
             });
         }
 
-        private void OnClickFrog()
+        private void OnClickFrog(OnClickFrogEvent args)
         {
+            AddFrog(args.Frog);
             _currentMoveAmount--;
             PublishMoveAmount();
         }
 
-        private void OnFrogMovementDone()
+        private void CheckLevelStatus()
         {
             if (GameFuncs.IsLevelDone())
             {
@@ -75,8 +102,13 @@ namespace Managers
                 GameState = GameState.Fail;
                 EventBus<OnGameStateChangedEvent>.Publish(new OnGameStateChangedEvent());
             }
+        }
 
-         
+        private void OnFrogMovementDone(OnFrogMovementDoneEvent args)
+        {
+            
+            RemoveFrog(args.Frog);
+        
         }
     }
     
