@@ -7,6 +7,7 @@ using Extensions;
 using FrogScripts.Tongue;
 using HexViewScripts;
 using Managers;
+using UI;
 using UnityEngine;
 
 namespace FrogScripts
@@ -85,7 +86,7 @@ namespace FrogScripts
 
         private void OnMouseDown()
         {
-            if (_frogTongue.TongueState != TongueState.Idle || GameManager.GameState!=GameState.Playing) return;
+            if ( CanvasController.IsAnyWindowOpen || _frogTongue.TongueState != TongueState.Idle || GameManager.GameState!=GameState.Playing) return;
             
             EventBus<OnClickFrogEvent>.Publish(new OnClickFrogEvent()
             {

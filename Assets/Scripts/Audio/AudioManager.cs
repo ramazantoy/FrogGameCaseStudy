@@ -17,6 +17,7 @@ namespace Audio
         private EventBinding<OnNewHexEvent> _onNewHexEvent;
         private EventBinding<OnWrongEvent> _onWrongEvent;
         private EventBinding<OnTriggerEvent> _onTriggerEvent;
+        private EventBinding<OnMusicSettingsChanged> _onMusicSettingChangedEvent;
         private void Start()
         {
            _audioSource.clip = _audioManagerDataContainer.MainSound;
@@ -31,12 +32,14 @@ namespace Audio
             _onNewHexEvent = new EventBinding<OnNewHexEvent>(PlayOnNewHexSound);
             _onWrongEvent = new EventBinding<OnWrongEvent>(PlayWrongSound);
             _onTriggerEvent = new EventBinding<OnTriggerEvent>(PlayTriggerSound);
+            _onMusicSettingChangedEvent = new EventBinding<OnMusicSettingsChanged>(SetMusicSettings);
 
             EventBus<OnClickFrogEvent>.Subscribe(_onClickEvent);
             EventBus<OnCollectItemEvent>.Subscribe(_onCollectItemEvent);
             EventBus<OnNewHexEvent>.Subscribe(_onNewHexEvent);
             EventBus<OnWrongEvent>.Subscribe(_onWrongEvent);
             EventBus<OnTriggerEvent>.Subscribe(_onTriggerEvent);
+            EventBus<OnMusicSettingsChanged>.Subscribe(_onMusicSettingChangedEvent);
         }
 
         private void OnDisable()
@@ -46,6 +49,7 @@ namespace Audio
             EventBus<OnNewHexEvent>.Unsubscribe(_onNewHexEvent);
             EventBus<OnWrongEvent>.Unsubscribe(_onWrongEvent);
             EventBus<OnTriggerEvent>.Unsubscribe(_onTriggerEvent);
+            EventBus<OnMusicSettingsChanged>.Unsubscribe(_onMusicSettingChangedEvent);
         }
 
         private void SetMusicSettings()
@@ -90,5 +94,7 @@ namespace Audio
             if (!_audioManagerDataContainer.GameSaveDataContainer.Data.IsSoundEffectsOn) return;
             _audioSource.PlayOneShot(_audioManagerDataContainer.OnTiggerSound);
         }
+        
+        
     }
 }

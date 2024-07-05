@@ -112,6 +112,7 @@ namespace Managers
             RemoveFrog(args.Frog);
         
         }
+        
     }
     
 }
