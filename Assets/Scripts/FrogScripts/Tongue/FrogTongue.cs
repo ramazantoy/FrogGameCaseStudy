@@ -275,9 +275,18 @@ namespace FrogScripts.Tongue
                 BlowYourSelf();
             }
 
+        
+            
             ResetPoints();
+            
             SetTongueState(TongueState.Idle);
             
+            EventBus<OnFrogMovementDoneEvent>.Publish(new OnFrogMovementDoneEvent()
+            {
+
+                Frog = _myFrog
+            });
+
         }
 
         /// <summary>
