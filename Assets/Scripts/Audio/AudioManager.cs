@@ -5,6 +5,12 @@ using UnityEngine;
 
 namespace Audio
 {
+    /// <summary>
+    /// The AudioManager class is responsible for managing and playing various sound effects
+    /// and music in the game. It handles sound events such as clicking on a frog, collecting items,
+    /// encountering new hexes, making mistakes, and triggering specific game actions. The class
+    /// also manages music settings based on game state and player preferences.
+    /// </summary>v
     public class AudioManager : MonoBehaviour
     {
         [SerializeField] private AudioManagerDataContainer _audioManagerDataContainer;

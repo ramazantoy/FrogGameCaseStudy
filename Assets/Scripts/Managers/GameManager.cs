@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using Enums;
 using Events.EventBusScripts;
 using Events.GameEvents;
@@ -10,6 +8,12 @@ using UnityEngine;
 
 namespace Managers
 {
+    /// <summary>
+    /// The GameManager class is responsible for managing the game state,
+    /// handling frog interactions, and updating the level status based on player moves.
+    /// It subscribes to and handles various game events such as setting move amounts,
+    /// frog movements, and click events on frogs.
+    /// </summary>
     public class GameManager : MonoBehaviour
     {
         [SerializeField]

@@ -8,6 +8,11 @@ using UnityEngine.SceneManagement;
 
 namespace UI
 {
+    /// <summary>
+    /// The CanvasController class handles the UI interactions and updates in the game.
+    /// It manages button clicks, updates the display of moves, and reacts to changes in the game state.
+    /// It also controls the visibility and state of various UI elements such as settings and restart buttons.
+    /// </summary>
     public class CanvasController : MonoBehaviour
     {
         [SerializeField] private CanvasControllerData _properties;
